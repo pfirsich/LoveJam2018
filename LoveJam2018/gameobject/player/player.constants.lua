@@ -10,6 +10,9 @@ return {
         groundProbeHeight = 0.1,
         groundProbeOffsetY = 0.1,
 
+        interactDistance = 100,
+        interactHeightFactor = 0.8,
+
         -- shared between states
 
         -- Wait

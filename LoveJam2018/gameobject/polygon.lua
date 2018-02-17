@@ -15,6 +15,8 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     self.destructible = destructible
     self.openable = openable
 
+    self.open = false
+
     local triangles = lm.triangulate(points)
     local vertices = {}
     local textureScale = 0.1
@@ -35,15 +37,44 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
         self.shape = GameObject.collider:polygon(unpack(points))
         self.shape._object = self
     end
+
+    self.hinted = false
 end
 
 function Polygon:update()
+    -- this only really works because the player is rendered (and update) last
+    -- this is technically a hack
+    self.hinted = false
+end
 
+function Polygon:hintInteract()
+    if self.openable then
+        self.hinted = true
+    end
+end
+
+function Polygon:interact()
+    if self.openable then
+        self.open = not self.open
+        self.solid = not self.open
+    end
 end
 
 function Polygon:draw()
-    lg.setColor(self.color)
+    local color = {unpack(self.color)}
+    color[4] = 255
+    if self.open then
+        color[4] = 80
+    end
+    lg.setColor(color)
     lg.draw(self.mesh)
+
+    if self.hinted and math.cos(love.timer.getTime() * 2*math.pi) > 0.0 then
+        lg.setColor(255, 255, 100, color[4])
+        lg.setLineWidth(6)
+        lg.polygon("line", self.points)
+        lg.setLineWidth(1)
+    end
 end
 
 return Polygon

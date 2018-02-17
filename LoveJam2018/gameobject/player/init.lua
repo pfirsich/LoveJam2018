@@ -24,11 +24,15 @@ function Player:initialize(controller, team, spawnPosition)
     self.time = 0
     self.canDash = true
     self.invincibility = 0
+    self.flipped = false
 
     self:setState(states.Wait)
 
     local w, h = const.player.width * const.player.groundProbeWidthFactor, const.player.groundProbeHeight
     self._groundProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
+
+    local w, h = const.player.interactDistance, const.player.height * const.player.interactHeightFactor
+    self._interactProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
 end
 
 function Player:setState(stateClass, ...)
@@ -53,6 +57,22 @@ function Player:enterDash()
     else
         if onGround then
             self.canDash = true
+        end
+    end
+end
+
+function Player:interact()
+    local dir = self.flipped and {-1, 0} or {1, 0}
+    local offset = const.player.width/2 + const.player.interactDistance/2
+    self._interactProbe:moveTo(unpack(vmath.add(self.position, vmath.mul(dir, offset))))
+    local collisions = GameObject.collider:collisions(self._interactProbe)
+    for other, mtv in pairs(collisions) do
+        local obj = other._object
+        if obj.hintInteract then
+            obj:hintInteract()
+            if self.controller.use.pressed then
+                obj:interact()
+            end
         end
     end
 end
@@ -86,7 +106,7 @@ function Player:onGround()
         const.player.groundProbeOffsetY)
     local collisions = GameObject.collider:collisions(self._groundProbe)
     for other, mtv in pairs(collisions) do
-        if other._object.class == Polygon then
+        if other._object.class == Polygon and other._object.solid then
             return true
         end
     end
@@ -111,6 +131,12 @@ function Player:update()
         self.aimDir = vmath.normed(self.moveDir)
     end
 
+    if self.aimDir[1] > 0 then
+        self.flipped = false
+    elseif self.aimDir[1] < 0 then
+        self.flipped = true
+    end
+
     self.time = self.time + const.SIM_DT
     self.frameCounter = self.frameCounter + 1
 
@@ -132,7 +158,7 @@ function Player:updateCollisions()
         local collides, dx, dy = self.shape:collidesWith(other)
         local mtv = {dx, dy}
         if collides then
-            if other._object.class == Polygon then
+            if other._object.class == Polygon and other._object.solid then
                 if not self:onGround() then
                     print(utils.inspect(other._object.color), mtv[1], mtv[2])
                 end

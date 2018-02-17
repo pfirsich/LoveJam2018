@@ -39,6 +39,8 @@ function Wait:update()
         player:setState(states.Fall)
         return
     end
+
+    player:interact()
 end
 
 return Wait

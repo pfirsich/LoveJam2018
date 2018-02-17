@@ -56,6 +56,8 @@ function Run:update()
         player:setState(states.Wait)
         return
     end
+
+    player:interact()
 end
 
 return Run

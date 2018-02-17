@@ -41,6 +41,8 @@ function Dash:update()
         player:setState(states.Fall)
         return
     end
+
+    player:interact()
 end
 
 function Dash:collision(other, mtv)

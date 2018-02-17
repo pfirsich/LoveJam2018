@@ -45,7 +45,7 @@ function Cling:update()
     local collisions = GameObject.collider:collisions(self.clingProbe)
     print("cling", #utils.table.keys(collisions))
     for other, mtv in pairs(collisions) do
-        if other._object.class == Polygon then
+        if other._object.class == Polygon and other._object.solid then
             colliding = true
         end
     end
@@ -57,6 +57,8 @@ function Cling:update()
     if not colliding then
         player:setState(states.Fall)
     end
+
+    player:interact()
 end
 
 return Cling

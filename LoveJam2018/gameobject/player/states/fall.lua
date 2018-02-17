@@ -83,6 +83,8 @@ function Fall:update()
     if player:onGround() then
         player:setState(states.Wait)
     end
+
+    player:interact()
 end
 
 return Fall
