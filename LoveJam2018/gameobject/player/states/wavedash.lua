@@ -25,6 +25,7 @@ function Wavedash:update()
     player:friction(friction, friction)
 
     if not player:onGround() then
+        player.velocity = vmath.mul(player.velocity, const.player.wavedashRunoffVelFactor)
         player:setState(states.Fall)
         return
     end

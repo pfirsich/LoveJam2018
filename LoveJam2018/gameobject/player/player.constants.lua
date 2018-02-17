@@ -71,5 +71,6 @@ return {
         -- Wavedash
         wavedashFrictionFactor = 12.0,
         wavedashDuration = 0.25,
+        wavedashRunoffVelFactor = 0.25,
     }
 }
