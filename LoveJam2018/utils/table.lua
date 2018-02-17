@@ -88,4 +88,16 @@ function tableUtils.stableSort(list, cmp)
     end
 end
 
+function tableUtils.randomChoice(list)
+    return list[love.math.random(1, #list)]
+end
+
+function tableUtils.keys(tbl)
+    local ret = {}
+    for k, _ in pairs(tbl) do
+        table.insert(ret, k)
+    end
+    return ret
+end
+
 return tableUtils

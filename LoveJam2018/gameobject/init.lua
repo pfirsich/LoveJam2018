@@ -1,3 +1,4 @@
+local const = require("constants")
 local utils = require("utils")
 local class = require("libs.class")
 local HC = require("libs.HC")
@@ -7,7 +8,7 @@ local GameObject = class("GameObject")
 function GameObject.resetWorld()
     GameObject.world = {}
     GameObject.idMap = {}
-    GameObject.collider = HC.new(1)
+    GameObject.collider = HC.new(const.colliderGridSize)
 end
 
 function GameObject.getById(id)

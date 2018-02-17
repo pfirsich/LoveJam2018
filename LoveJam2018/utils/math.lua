@@ -12,4 +12,12 @@ function _math.clampAbs(x, max)
     return _math.clamp(x, -max, max)
 end
 
+function _math.randf(min, max)
+    return min + love.math.random() * (max - min)
+end
+
+function _math.randInRect(x, y, w, h)
+    return {_math.randf(x, x + w), _math.randf(y, y + h)}
+end
+
 return _math

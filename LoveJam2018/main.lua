@@ -85,7 +85,7 @@ function love.run()
             dt = love.timer.getDelta()
         end
 
-        scene.realTime = scene.realTime + dt
+        scene.realTime = scene.realTime + dt / const.slowMo
 
         if lg and lg.isActive() then
             lg.clear(lg.getBackgroundColor())

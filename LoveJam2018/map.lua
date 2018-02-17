@@ -92,11 +92,24 @@ function map.load(name)
     return mapData
 end
 
+local function rectanglePolygon(x, y, w, h)
+    return {x,y,  x+w,y,  x+w,y+h,  x,y+h}
+end
+
 function map.instance(mapData)
     for _, polygon in ipairs(mapData.polygons) do
         Polygon(utils.table.unpackKeys(polygon,
             {"points", "color", "solid", "kunaiSolid", "transparent", "destructible", "openable"}))
     end
+
+    -- level bounds
+    local x, y, w, h = unpack(mapData.bounds)
+    local boundW = 200
+    local params = {{255, 0, 0, 255}, true, false, false, false, false}
+    Polygon(rectanglePolygon(x-boundW, y, boundW, h), unpack(params))
+    Polygon(rectanglePolygon(x+w, y, boundW, h), unpack(params))
+    Polygon(rectanglePolygon(x, y-boundW, w, boundW), unpack(params))
+    Polygon(rectanglePolygon(x, y+h, w, boundW), unpack(params))
 end
 
 return map
