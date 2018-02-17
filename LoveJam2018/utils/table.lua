@@ -55,4 +55,37 @@ function tableUtils.inverseTable(tbl)
     return ret
 end
 
+-- TODO: implement, step, negative indices
+function tableUtils.slice(tbl, from, to)
+    from = from or 1
+    to = to or #tbl
+    local ret = {}
+    for i = from, to do
+        table.insert(ret, tbl[i])
+    end
+    return ret
+end
+
+function tableUtils.unpackKeys(tbl, keys)
+    if #keys == 0 then
+        return nil
+    elseif #keys == 1 then
+        return tbl[keys[1]]
+    else
+        return tbl[keys[1]], tableUtils.unpackKeys(tbl, tableUtils.slice(keys, 2))
+    end
+end
+
+function tableUtils.stableSort(list, cmp)
+    for i = 2, #list do
+        local v = list[i]
+        local j = i
+        while j > 1 and cmp(v, list[j-1]) do
+            list[j] = list[j-1]
+            j = j - 1
+        end
+        list[j] = v
+    end
+end
+
 return tableUtils

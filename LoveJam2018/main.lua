@@ -23,7 +23,7 @@ function love.load(args)
         utils.callNonNil(scene.load)
     end
 
-    scenes.enter(scenes.game)
+    scenes.enter(scenes.game, "firsttest")
 end
 
 function love.update()

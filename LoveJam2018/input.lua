@@ -129,6 +129,12 @@ function input.mouse(button)
     end
 end
 
+function input.mousePos(axis)
+    return function()
+        return select(axis, love.mouse.getPosition())
+    end
+end
+
 local function _binaryDummy()
     return false
 end

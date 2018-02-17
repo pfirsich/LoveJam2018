@@ -22,7 +22,7 @@ function GameObject.updateAll()
     for _, object in ipairs(GameObject.world) do
         object:update()
     end
-    table.sort(GameObject.world, gameObjectCmp)
+    utils.table.stableSort(GameObject.world, gameObjectCmp)
 end
 
 function GameObject.drawAll(dt)
