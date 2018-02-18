@@ -40,20 +40,31 @@ function GameObject.callAll(name, ...)
     end
 end
 
+function GameObject.removeMarked()
+    for i = #GameObject.world, 1, -1 do
+        if GameObject.world[i].markedForDeletion then
+            GameObject.world[i]:removeFromWorld()
+        end
+    end
+end
+
 function GameObject:initialize()
     table.insert(GameObject.world, self)
     self.id = math.floor(lm.random(0, 2^52))
     GameObject.idMap[self.id] = self
     self.depth = 0
+    self.markedForDeletion = false
 end
 
 function GameObject:removeFromWorld()
-    local index = nil
+    local object, index = nil, nil
     for i, obj in ipairs(GameObject.world) do
         if obj == self then
+            object = obj
             index = i
         end
     end
+    object:destroy()
     table.remove(GameObject.world, index)
     GameObject.idMap[self.id] = nil
 end

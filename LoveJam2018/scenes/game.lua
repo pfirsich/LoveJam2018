@@ -100,6 +100,7 @@ end
 
 function scene.tick()
     GameObject.updateAll()
+    GameObject.removeMarked()
 
     -- camera
     camera.target.position = player.position
