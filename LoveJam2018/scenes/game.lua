@@ -36,6 +36,10 @@ function scene.enter(mapName)
     shadowCanvas = lg.newCanvas()
 end
 
+function scene.resize(width, height)
+    shadowCanvas = lg.newCanvas()
+end
+
 local function rel(x, y, fromx, fromy)
     local relX, relY = x - fromx, y - fromy
     local len = math.sqrt(relX*relX + relY*relY)

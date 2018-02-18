@@ -39,6 +39,15 @@ function love.keypressed(key)
     if ctrl and key == "r" then
         const.reload()
     end
+    if key == "f11" then
+        utils.toggleFullscreen()
+    end
+end
+
+function love.resize(width, height)
+    if scenes.current.resize then
+        scenes.current.resize(width, height)
+    end
 end
 
 function love.run()
