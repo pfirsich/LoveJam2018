@@ -14,6 +14,7 @@ local mapData = nil
 local player = nil
 local shadowMesh = nil
 local shadowCanvas = nil
+local background = lg.newImage("media/bg.png")
 
 function scene.enter(mapName)
     lg.setBackgroundColor(20, 25, 100)
@@ -111,7 +112,11 @@ function scene.tick()
 end
 
 function scene.draw(dt)
+    local winW, winH = lg.getDimensions()
+
     GameObject.callAll("preHudDraw")
+
+    lg.draw(background, 0, 0, 0, winW / background:getWidth(), winH / background:getHeight())
 
     camera.push()
         GameObject.drawAll(dt)
