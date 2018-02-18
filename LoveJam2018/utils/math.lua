@@ -47,4 +47,19 @@ function _math.rectIntersect(a, b)
     return math.abs(acx - bcx) < aw/2 + bw/2 and math.abs(acy - bcy) < ah/2 + bh/2
 end
 
+function _math.polygonCentroid(polygon)
+    local cx, cy = 0, 0
+    for i = 1, #polygon, 2 do
+        cx = cx + polygon[i+0]
+        cy = cy + polygon[i+1]
+    end
+    return cx / #polygon * 2, cy / #polygon * 2
+end
+
+function _math.rotatePoint(x, y, angle)
+    local c, s = math.cos(angle), math.sin(angle)
+    return c*x - s*y,
+           s*x + c*y
+end
+
 return _math

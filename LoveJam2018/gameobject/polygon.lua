@@ -1,6 +1,7 @@
 local utils = require("utils")
 local class = require("libs.class")
 local GameObject = require("gameobject")
+local Hitbox = require("gameobject.player.hitbox")
 
 Polygon = class("Polygon", GameObject)
 
@@ -14,8 +15,6 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     self.transparent = transparent
     self.destructible = destructible
     self.openable = openable
-
-    self.open = false
 
     local triangles = lm.triangulate(points)
     local vertices = {}
@@ -44,6 +43,13 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
 end
 
 function Polygon:update()
+    if self.destructible then
+        local collisions = Hitbox.collider:collisions(self.shape)
+        for other, mtv in pairs(collisions) do
+            self.markedForDeletion = true
+        end
+    end
+
     -- this only really works because the player is rendered (and update) last
     -- this is technically a hack
     self.hinted = false
@@ -57,15 +63,20 @@ end
 
 function Polygon:interact()
     if self.openable then
-        self.open = not self.open
-        self.solid = not self.open
+        self.solid = not self.solid
+    end
+end
+
+function Polygon:destroy()
+    if self.shape then
+        GameObject.collider:remove(self.shape)
     end
 end
 
 function Polygon:draw()
     local color = {unpack(self.color)}
     color[4] = 255
-    if self.open then
+    if self.openable and not self.solid then
         color[4] = 80
     end
     lg.setColor(color)

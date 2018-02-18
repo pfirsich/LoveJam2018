@@ -23,7 +23,7 @@ return {
         maxWalkSpeed = 300.0, -- units/sec
         sprintAccelDur = 0.7,
         maxSprintSpeedFactor = 3.0,
-        runEndSpeed = 100.0,
+        runEndSpeed = 10.0,
         runFriction = 2500.0,
 
         -- Fall
@@ -72,5 +72,56 @@ return {
         wavedashFrictionFactor = 12.0,
         wavedashDuration = 0.25,
         wavedashRunoffVelFactor = 0.25,
+
+        -- Attack
+        attackGfxInnerRadX = 150,
+        attackGfxInnerRadY = 100,
+        attackGfxOuterRadX = 200,
+        attackGfxOuterRadY = 100,
+
+        attackStartup = 4/60.0,
+        attackActive = 4/60.0,
+        attackCooldown = 0.25,
+
+        attackImpulse = {
+            side = 600,
+            up = 300,
+            down = 600,
+        },
+
+        attackHitbox = {
+            0, -100,
+            90, -90,
+            130, -70,
+            180, 0,
+            130, 70,
+            90, 90,
+            0, 100,
+        },
+
+        attackData = {
+            ground = {
+                side = {
+
+                },
+                up = {
+
+                },
+                down = {
+
+                },
+            },
+            air = {
+                side = {
+
+                },
+                up = {
+
+                },
+                down = {
+
+                },
+            },
+        }
     }
 }

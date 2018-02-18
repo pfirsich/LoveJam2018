@@ -37,6 +37,8 @@ function Run:update()
         player:friction(const.player.runFriction)
     end
 
+    player:updateFlipped()
+
     if player:enterDash() then
         return
     end
@@ -54,6 +56,11 @@ function Run:update()
     if math.abs(player.velocity[1]) < const.player.runEndSpeed
             and math.abs(targetMoveSpeed) < const.player.runEndSpeed then
         player:setState(states.Wait)
+        return
+    end
+
+    if player.controller.attack.pressed then
+        player:setState(states.Attack)
         return
     end
 

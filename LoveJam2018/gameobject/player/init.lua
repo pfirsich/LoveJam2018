@@ -18,7 +18,9 @@ function Player:initialize(controller, team, spawnPosition)
     self.team = team
     self.position = spawnPosition
     self.velocity = {0, 0}
-    self.shape = GameObject.collider:rectangle(0, 0, const.player.width, const.player.height)
+    local w, h = const.player.width, const.player.height
+    --self.shape = GameObject.collider:rectangle(0, 0, w, h)
+    self.shape = GameObject.collider:polygon(0,-h/2,  -w/2,0,  0,h/2,  w/2,0)
     self.shape._object = self
     self.frameCounter = 0
     self.time = 0
@@ -28,11 +30,13 @@ function Player:initialize(controller, team, spawnPosition)
 
     self:setState(states.Wait)
 
-    local w, h = const.player.width * const.player.groundProbeWidthFactor, const.player.groundProbeHeight
+    local w, h = const.player.width * const.player.groundProbeWidthFactor * 0.05, const.player.groundProbeHeight
     self._groundProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
 
     local w, h = const.player.interactDistance, const.player.height * const.player.interactHeightFactor
     self._interactProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
+
+    self._hitboxIdCounter = 0
 end
 
 function Player:setState(stateClass, ...)
@@ -42,6 +46,11 @@ function Player:setState(stateClass, ...)
     end
     self.state = state
     self.state:enter(...)
+end
+
+function Player:getNextHitboxId()
+    self._hitboxIdCounter = self._hitboxIdCounter + 1
+    return self._hitboxIdCounter
 end
 
 function Player:enterDash()
@@ -113,6 +122,15 @@ function Player:onGround()
     return false
 end
 
+function Player:updateFlipped(dir)
+    dir = dir or self.moveDir
+    if self.aimDir[1] > 0 then
+        self.flipped = false
+    elseif self.aimDir[1] < 0 then
+        self.flipped = true
+    end
+end
+
 function Player:update()
     local pconst = const.player
 
@@ -129,12 +147,6 @@ function Player:update()
         self.aimDir = vmath.normed(vmath.sub(worldAim, self.position))
     else
         self.aimDir = vmath.normed(self.moveDir)
-    end
-
-    if self.aimDir[1] > 0 then
-        self.flipped = false
-    elseif self.aimDir[1] < 0 then
-        self.flipped = true
     end
 
     self.time = self.time + const.SIM_DT

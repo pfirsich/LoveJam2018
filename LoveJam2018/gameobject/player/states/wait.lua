@@ -40,6 +40,11 @@ function Wait:update()
         return
     end
 
+    if player.controller.attack.pressed then
+        player:setState(states.Attack)
+        return
+    end
+
     player:interact()
 end
 

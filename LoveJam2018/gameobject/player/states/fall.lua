@@ -84,6 +84,11 @@ function Fall:update()
         player:setState(states.Wait)
     end
 
+    if player.controller.attack.pressed then
+        player:setState(states.Attack)
+        return
+    end
+
     player:interact()
 end
 

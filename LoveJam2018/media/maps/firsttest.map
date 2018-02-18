@@ -55,15 +55,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 			},
@@ -121,15 +121,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -217,15 +217,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -313,14 +313,14 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
 						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
 						},
 					},
 				},
@@ -409,7 +409,6 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -418,6 +417,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
@@ -505,14 +505,14 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
 						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
 						},
 					},
 				},
@@ -601,7 +601,6 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -610,6 +609,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
@@ -697,14 +697,14 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
 						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
 						},
 					},
 				},
@@ -793,7 +793,6 @@ return {
 						[4] = 100,
 					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -802,6 +801,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
@@ -865,15 +865,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -961,7 +961,6 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -970,6 +969,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
@@ -1057,15 +1057,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -1153,15 +1153,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -1249,15 +1249,15 @@ return {
 						[4] = 255,
 					},
 					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
 						["offset"] = {
 							[1] = 0,
 							[2] = 0,
 						},
 						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
 					},
 				},
 				[4] = {
@@ -1345,7 +1345,6 @@ return {
 						[4] = 100,
 					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -1354,6 +1353,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
@@ -1406,6 +1406,100 @@ return {
 				},
 			},
 			["guid"] = 16,
+		},
+		[17] = {
+			["type"] = "polygon",
+			["components"] = {
+				[1] = {
+					["id"] = "core",
+					["hidden"] = false,
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "polygon",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = -790.89848811771,
+						[2] = -821.67161953202,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -41.826991364964,
+						[2] = -47.493874066025,
+						[3] = 66.65333462675,
+						[4] = -47.493874066025,
+						[5] = 66.65333462675,
+						[6] = 47.493874066025,
+					},
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["id"] = "polygon",
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
+				},
+				[4] = {
+					["label"] = "Solid",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "solid",
+				},
+				[5] = {
+					["label"] = "Solid for Kunai",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "kunaiSolid",
+				},
+				[6] = {
+					["label"] = "Transparent",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "transparent",
+				},
+				[7] = {
+					["label"] = "Destructible",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "destructible",
+				},
+				[8] = {
+					["label"] = "Openable",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "openable",
+				},
+			},
+			["guid"] = 17,
 		},
 	},
 	["componentStatics"] = {
