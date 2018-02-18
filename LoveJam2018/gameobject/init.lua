@@ -69,6 +69,9 @@ function GameObject:removeFromWorld()
     GameObject.idMap[self.id] = nil
 end
 
+function GameObject:destroy()
+end
+
 function GameObject:update()
 end
 
