@@ -123,7 +123,11 @@ function scene.draw(dt)
     lg.draw(background, 0, 0, 0, winW / background:getWidth(), winH / background:getHeight())
 
     camera.push()
-        GameObject.drawAll(dt)
+        for _, object in ipairs(GameObject.world) do
+            if object ~= player then
+                object:draw(dt)
+            end
+        end
 
         lg.setCanvas(shadowCanvas)
         lg.clear(0, 0, 0, 0)
@@ -133,6 +137,10 @@ function scene.draw(dt)
     camera.pop()
     lg.setColor(0, 0, 0, 120)
     lg.draw(shadowCanvas)
+
+    camera.push()
+        player:draw(dt)
+    camera.pop()
 
     lg.setColor(255, 255, 255, 255)
     GameObject.callAll("postHudDraw")
