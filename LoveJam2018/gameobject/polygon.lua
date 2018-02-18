@@ -31,6 +31,8 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
             })
         end
     end
+    self.triangles = triangles
+    self.aabb = utils.math.getPolyAABB(self.points)
     self.mesh = lg.newMesh(vertices, "triangles", "static")
 
     if self.solid then
@@ -69,7 +71,7 @@ function Polygon:draw()
     lg.setColor(color)
     lg.draw(self.mesh)
 
-    if self.hinted and math.cos(love.timer.getTime() * 2*math.pi) > 0.0 then
+    if self.hinted then
         lg.setColor(255, 255, 100, color[4])
         lg.setLineWidth(6)
         lg.polygon("line", self.points)

@@ -137,7 +137,7 @@ end
 function camera.getAABB()
     local tlX, tlY = camera.screenToWorld(0, 0)
     local brX, brY = camera.screenToWorld(love.graphics.getDimensions())
-    return tlX, tlY, brX, brY
+    return tlX, tlY, brX - tlX, brY - tlY
 end
 
 return camera

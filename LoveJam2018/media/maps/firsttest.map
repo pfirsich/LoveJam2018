@@ -7,14 +7,13 @@ return {
 			["type"] = "levelbounds",
 			["components"] = {
 				[1] = {
-					["id"] = "core",
 					["hidden"] = false,
+					["id"] = "core",
 					["componentType"] = "Core",
-					["name"] = "levelbounds",
 					["locked"] = false,
+					["name"] = "levelbounds",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -25,11 +24,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -48,8 +48,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 40,
+						[2] = 60,
+						[3] = 130,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -58,12 +63,7 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 40,
-						[2] = 60,
-						[3] = 130,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 			},
@@ -73,14 +73,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -91,11 +90,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -114,8 +114,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 30,
+						[2] = 30,
+						[3] = 30,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -124,42 +129,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 30,
-						[2] = 30,
-						[3] = 30,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -169,14 +169,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -187,11 +186,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -210,8 +210,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 30,
+						[2] = 30,
+						[3] = 30,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -220,42 +225,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 30,
-						[2] = 30,
-						[3] = 30,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -265,14 +265,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -283,11 +282,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -306,52 +306,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-					},
 					["color"] = {
 						[1] = 30,
 						[2] = 30,
 						[3] = 30,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -361,14 +361,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -379,11 +378,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -402,52 +402,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-					},
 					["color"] = {
 						[1] = 100,
 						[2] = 40,
 						[3] = 20,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "openable",
 				},
 			},
@@ -457,14 +457,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -475,11 +474,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -498,52 +498,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-					},
 					["color"] = {
 						[1] = 0,
 						[2] = 0,
 						[3] = 0,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -553,14 +553,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -571,11 +570,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -594,52 +594,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-					},
 					["color"] = {
 						[1] = 0,
 						[2] = 0,
 						[3] = 0,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -649,14 +649,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -667,11 +666,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -690,52 +690,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-					},
 					["color"] = {
 						[1] = 50,
 						[2] = 70,
 						[3] = 90,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -745,14 +745,13 @@ return {
 			["type"] = "spawnzone",
 			["components"] = {
 				[1] = {
-					["id"] = "core",
 					["hidden"] = false,
+					["id"] = "core",
 					["componentType"] = "Core",
-					["name"] = "spawnzone",
 					["locked"] = false,
+					["name"] = "spawnzone",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -763,11 +762,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -786,28 +786,28 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-					},
 					["color"] = {
 						[1] = 0,
 						[2] = 255,
 						[3] = 0,
 						[4] = 100,
 					},
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Defender?",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "team",
 				},
 			},
@@ -817,14 +817,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -835,11 +834,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -858,8 +858,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -868,42 +873,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 0,
-						[2] = 0,
-						[3] = 0,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -913,14 +913,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -931,11 +930,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -954,52 +954,52 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-					},
 					["color"] = {
 						[1] = 0,
 						[2] = 0,
 						[3] = 0,
 						[4] = 255,
 					},
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -1009,14 +1009,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["id"] = "core",
 					["hidden"] = false,
+					["id"] = "core",
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -1027,11 +1026,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -1050,8 +1050,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -1060,42 +1065,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 0,
-						[2] = 0,
-						[3] = 0,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -1105,14 +1105,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["id"] = "core",
 					["hidden"] = false,
+					["id"] = "core",
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "polygon",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -1123,11 +1122,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -1146,8 +1146,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -1156,42 +1161,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 0,
-						[2] = 0,
-						[3] = 0,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -1201,14 +1201,13 @@ return {
 			["type"] = "polygon",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "polygon",
 					["locked"] = false,
+					["name"] = "taeter",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -1219,11 +1218,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -1242,8 +1242,13 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
 					["textureTransforms"] = {
-						["rotation"] = 0,
 						["scale"] = {
 							[1] = 1,
 							[2] = 1,
@@ -1252,42 +1257,37 @@ return {
 							[1] = 0,
 							[2] = 0,
 						},
-					},
-					["color"] = {
-						[1] = 0,
-						[2] = 0,
-						[3] = 0,
-						[4] = 255,
+						["rotation"] = 0,
 					},
 				},
 				[4] = {
 					["label"] = "Solid",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "solid",
 				},
 				[5] = {
 					["label"] = "Solid for Kunai",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "kunaiSolid",
 				},
 				[6] = {
 					["label"] = "Transparent",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "transparent",
 				},
 				[7] = {
 					["label"] = "Destructible",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "destructible",
 				},
 				[8] = {
 					["label"] = "Openable",
-					["value"] = false,
 					["componentType"] = "MetadataBoolean",
+					["value"] = false,
 					["id"] = "openable",
 				},
 			},
@@ -1297,14 +1297,13 @@ return {
 			["type"] = "spawnzone",
 			["components"] = {
 				[1] = {
-					["hidden"] = false,
 					["id"] = "core",
+					["hidden"] = false,
 					["componentType"] = "Core",
-					["name"] = "spawnzone",
 					["locked"] = false,
+					["name"] = "spawnzone",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 1,
 						[2] = 1,
@@ -1315,11 +1314,12 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["points"] = {
@@ -1338,28 +1338,28 @@ return {
 					["renderWireframe"] = false,
 					["imagePath"] = "",
 					["renderWholeTexture"] = false,
-					["textureTransforms"] = {
-						["offset"] = {
-							[1] = 0,
-							[2] = 0,
-						},
-						["rotation"] = 0,
-						["scale"] = {
-							[1] = 1,
-							[2] = 1,
-						},
-					},
 					["color"] = {
 						[1] = 0,
 						[2] = 255,
 						[3] = 0,
 						[4] = 100,
 					},
+					["textureTransforms"] = {
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+					},
 				},
 				[4] = {
 					["label"] = "Defender?",
-					["value"] = true,
 					["componentType"] = "MetadataBoolean",
+					["value"] = true,
 					["id"] = "team",
 				},
 			},
@@ -1369,14 +1369,13 @@ return {
 			["type"] = "objective_steal",
 			["components"] = {
 				[1] = {
-					["id"] = "core",
 					["hidden"] = false,
+					["id"] = "core",
 					["componentType"] = "Core",
-					["name"] = "objective_steal",
 					["locked"] = false,
+					["name"] = "objective_steal",
 				},
 				[2] = {
-					["keepAspect"] = true,
 					["scale"] = {
 						[1] = 0.47058360885356,
 						[2] = 0.47058360885356,
@@ -1387,22 +1386,23 @@ return {
 					},
 					["id"] = "transforms",
 					["componentType"] = "Transforms",
+					["rotation"] = 0,
 					["offset"] = {
 						[1] = 0,
 						[2] = 0,
 					},
-					["rotation"] = 0,
+					["keepAspect"] = true,
 				},
 				[3] = {
 					["imagePath"] = "../images/steal_objective.png",
+					["id"] = "sprite",
+					["componentType"] = "Sprite",
 					["color"] = {
 						[1] = 255,
 						[2] = 255,
 						[3] = 255,
 						[4] = 255,
 					},
-					["componentType"] = "Sprite",
-					["id"] = "sprite",
 				},
 			},
 			["guid"] = 16,
