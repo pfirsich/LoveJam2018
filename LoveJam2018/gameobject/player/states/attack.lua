@@ -54,6 +54,8 @@ function Attack:enter()
     player:updateFlipped()
     player.velocity = vmath.add(player.velocity,
         vmath.mul(dirVec[self.dir], const.player.attackImpulse[dirClass[self.dir]]))
+
+    player.animation:play("attack_" .. dirClass[self.dir])
 end
 
 function Attack:exit(newState)

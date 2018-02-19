@@ -14,6 +14,7 @@ end
 function Parry:enter()
     self.player.velocity = {0, 0}
     self.player.invincibility = const.player.parryInvinc
+    self.player.animation:play("dodge")
 end
 
 function Parry:exit(newState)

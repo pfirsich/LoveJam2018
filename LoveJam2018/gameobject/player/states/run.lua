@@ -11,7 +11,6 @@ function Run:initialize(player, ...)
 end
 
 function Run:enter()
-
 end
 
 function Run:exit(newState)
@@ -27,6 +26,16 @@ function Run:update()
     if player.controller.sprint.state then
         targetMoveSpeed = targetMoveSpeed * const.player.maxSprintSpeedFactor
         accell = math.abs(targetMoveSpeed) / const.player.sprintAccelDur
+    end
+
+    if player.controller.sprint.state then
+        if player.animation.current ~= "run" then
+            player.animation:play("run")
+        end
+    else
+        if player.animation.current ~= "sneak" then
+            player.animation:play("sneak")
+        end
     end
 
     if targetMoveSpeed > 0 and player.velocity[1] < targetMoveSpeed then

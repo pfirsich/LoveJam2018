@@ -39,6 +39,10 @@ function Fall:update()
         player.velocity[2] = player.velocity[2] + gravity * const.SIM_DT
     end
 
+    if player.velocity[2] > 0 and player.animation.current ~= "fall" then
+        player.animation:play("fall")
+    end
+
     -- aerial movement
     local moveX = player.moveDir[1]
     local drift = utils.math.sign(moveX) * const.player.airAccelerationMin + moveX * const.player.airAcceleration

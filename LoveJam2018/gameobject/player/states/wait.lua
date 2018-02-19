@@ -9,7 +9,7 @@ function Wait:initialize(player, ...)
 end
 
 function Wait:enter()
-
+    self.player.animation:play("idle")
 end
 
 function Wait:exit(newState)

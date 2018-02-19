@@ -13,6 +13,32 @@ return {
         interactDistance = 100,
         interactHeightFactor = 0.8,
 
+        animationScales = {
+            idle = 0.32,
+            run = 0.3,
+            sneak = 0.23,
+            attack_side = 0.30,
+            attack_up = 0.30,
+            attack_down = 0.30,
+            dodge = 0.23,
+            jumpsquat = 0.34,
+            jump = 0.34,
+            fall = 0.35,
+            land = 0.35,
+            dash = 0.23,
+            climbH = 0.23,
+            climbHstop = 0.23,
+            climbV = 0.25,
+            climbVstop = 0.25,
+        },
+
+        animationDurations = {
+            idle = 0.8,
+            run = 0.7,
+            sneak = 0.9,
+            fall = 0.6,
+        },
+
         -- shared between states
 
         -- Wait
@@ -36,7 +62,7 @@ return {
         airAcceleration = 400.0,
         airAccelerationMin = 50.0,
         airMaxMoveSpeedFactor = 0.7,
-        airFriction = 300.0,
+        airFriction = 500.0,
 
         -- JumpSquat
         jumpSquatFrictionFactor = 2.0,
@@ -62,15 +88,13 @@ return {
         -- Cling
         clingProbeMargin = 5.0,
         clingSpeed = 250.0,
-        --clingAccelDur = 0.5,
-        --clingMaxSpeed = 250.0,
-        --clingSprintAccelDur = 0.5,
         clingSprintSpeed = 500.0,
         clingDeadzone = 0.5,
+        clingWalljumpVel = {500, -1000},
 
         -- Wavedash
         wavedashFrictionFactor = 12.0,
-        wavedashDuration = 0.25,
+        wavedashDuration = 0.35,
         wavedashRunoffVelFactor = 0.25,
 
         -- Attack

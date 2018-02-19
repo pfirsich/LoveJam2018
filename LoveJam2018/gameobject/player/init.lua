@@ -8,6 +8,7 @@ local states = require("gameobject.player.states")
 local HCshapes = require("libs.HC.shapes")
 local fonts = require("media.fonts")
 local camera = require("camera")
+local animation = require("animation")
 
 local Player = class("Player", GameObject)
 
@@ -28,8 +29,6 @@ function Player:initialize(controller, team, spawnPosition)
     self.invincibility = 0
     self.flipped = false
 
-    self:setState(states.Wait)
-
     local w, h = const.player.width * const.player.groundProbeWidthFactor * 0.05, const.player.groundProbeHeight
     self._groundProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
 
@@ -37,6 +36,32 @@ function Player:initialize(controller, team, spawnPosition)
     self._interactProbe = HCshapes.newPolygonShape(0, 0,  w, 0,  w, h,  0, h)
 
     self._hitboxIdCounter = 0
+
+    self.animation = animation.AnimationState()
+    self:addAnimation("run", "media/ninja/run%d.png", 1, 8)
+    self:addAnimation("sneak", "media/ninja/sneak%d.png", 1, 6)
+    self:addAnimation("idle", "media/ninja/idle%d.png", 1, 2)
+    self:addAnimation("attack_side", "media/ninja/attack_side.png", 1, 1)
+    self:addAnimation("attack_up", "media/ninja/attack_up.png", 1, 1)
+    self:addAnimation("attack_down", "media/ninja/attack_down.png", 1, 1)
+    self:addAnimation("dodge", "media/ninja/dodge.png", 1, 1)
+    self:addAnimation("jumpsquat", "media/ninja/jump1.png", 1, 1)
+    self:addAnimation("jump", "media/ninja/jump2.png", 1, 1)
+    self:addAnimation("fall", "media/ninja/fall%d.png", 1, 2)
+    self:addAnimation("land", "media/ninja/land.png", 1, 1)
+    self:addAnimation("climbV", "media/ninja/climbV%d.png", 1, 4)
+    self:addAnimation("climbH", "media/ninja/climbH%d.png", 1, 4)
+    self:addAnimation("climbVstop", "media/ninja/climbV1.png", 1, 1)
+    self:addAnimation("climbHstop", "media/ninja/climbH%d.png", 1, 2)
+    self:addAnimation("dash", "media/ninja/dash.png", 1, 1)
+
+    self:setState(states.Wait)
+end
+
+function Player:addAnimation(name, path, from, to, duration)
+    local anim = animation.Animation(duration or 1.0)
+    anim:addFrames(animation.frameSequence(path, from, to))
+    self.animation:addAnimation(name, anim)
 end
 
 function Player:setState(stateClass, ...)
@@ -124,9 +149,9 @@ end
 
 function Player:updateFlipped(dir)
     dir = dir or self.moveDir
-    if self.aimDir[1] > 0 then
+    if dir[1] > 0 then
         self.flipped = false
-    elseif self.aimDir[1] < 0 then
+    elseif dir[1] < 0 then
         self.flipped = true
     end
 end
@@ -171,9 +196,6 @@ function Player:updateCollisions()
         local mtv = {dx, dy}
         if collides then
             if other._object.class == Polygon and other._object.solid then
-                if not self:onGround() then
-                    print(utils.inspect(other._object.color), mtv[1], mtv[2])
-                end
                 self:move(mtv)
                 local normal = mtv
                 local velNormal, velTangent = vmath.split(self.velocity, normal)
@@ -193,7 +215,13 @@ end
 function Player:draw(dt)
     utils.callNonNil(self.state.preDraw, self.state)
 
-    lg.setColor(100, 100, 100)
+    self.animation:update(dt)
+    local animDur = const.player.animationDurations[self.animation.current]
+    if animDur then
+        self.animation.animations[self.animation.current].duration = animDur
+    end
+
+    lg.setColor(255, 0, 0)
 
     if self.invincibility > 0 then
         lg.setColor(255, 255, 255)
@@ -202,7 +230,11 @@ function Player:draw(dt)
     lg.push()
         lg.translate(unpack(self.position))
         local w, h = const.player.width, const.player.height
-        lg.rectangle("fill", -w/2, -h/2, w, h)
+        --lg.rectangle("fill", -w/2, -h/2, w, h)
+        local scale = const.player.animationScales[self.animation.current] or 0.3
+        lg.scale(scale)
+        lg.scale(self.flipped and -1 or 1, 1)
+        self.animation:draw(-512, h/2/scale - 1024)
     lg.pop()
 
     utils.callNonNil(self.state.postDraw, self.state)
@@ -217,6 +249,7 @@ function Player:postHudDraw()
         position = self.position,
         velocity = self.velocity,
         onGround = self:onGround(),
+        animation = self.animation.current,
     }), 5, 30)
     lg.print(self.state:tostring(), 5, 200)
 end

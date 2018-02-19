@@ -11,7 +11,7 @@ function JumpSquat:initialize(player, ...)
 end
 
 function JumpSquat:enter()
-
+    self.player.animation:play("jumpsquat")
 end
 
 function JumpSquat:exit(newState)
@@ -34,6 +34,7 @@ function JumpSquat:update()
         player.velocity[1] = player.velocity[1] + player.moveDir[1] * const.player.jumpMoveDirSpeed
         player.velocity[1] = utils.math.clampAbs(player.velocity[1], const.player.jumpMaxMoveSpeed)
 
+        self.player.animation:play("jump")
         player:setState(states.Fall)
     end
 end

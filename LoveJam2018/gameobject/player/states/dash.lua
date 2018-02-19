@@ -26,6 +26,8 @@ function Dash:enter()
     player.velocity = vmath.mul(vmath.normed(player.moveDir), startSpeed)
     self.friction = startSpeed / const.player.dashDuration
     player.canDash = false
+    player.animation:play("dash")
+    player:updateFlipped()
 end
 
 function Dash:exit(newState)

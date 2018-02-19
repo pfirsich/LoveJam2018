@@ -12,7 +12,8 @@ function Wavedash:initialize(player, ...)
 end
 
 function Wavedash:enter()
-
+    self.player.animation:play("land")
+    self.player.canDash = true
 end
 
 function Wavedash:exit(newState)
