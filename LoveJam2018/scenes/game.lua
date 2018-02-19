@@ -25,19 +25,23 @@ function scene.enter(mapName)
     mapData = map.load(mapName)
     map.instance(mapData)
 
-    local joystick = love.joystick.getJoysticks()[1]
-    local ctrl = controller.keyboard()
-    if joystick and true then
-        ctrl = controller.gamepad(joystick)
-    end
     local team = "defenders"
     local spawnZone = utils.table.randomChoice(mapData.spawnZones[team])
-    player = Player(ctrl, team, utils.math.randInRect(unpack(spawnZone)))
+    player = Player(team, utils.math.randInRect(unpack(spawnZone)))
+    scene.setController(love.joystick.getJoysticks()[1])
 
     camera.bounds = mapData.bounds
 
     shadowMesh = lg.newMesh(2048, "triangles", "dynamic")
     shadowCanvas = lg.newCanvas()
+end
+
+function scene.setController(joystick)
+    if joystick then
+        player.controller = controller.gamepad(joystick)
+    else
+        player.controller = controller.keyboard()
+    end
 end
 
 function scene.resize(width, height)

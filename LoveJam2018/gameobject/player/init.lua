@@ -9,13 +9,14 @@ local HCshapes = require("libs.HC.shapes")
 local fonts = require("media.fonts")
 local camera = require("camera")
 local animation = require("animation")
+local controller = require("controller")
 
 local Player = class("Player", GameObject)
 
-function Player:initialize(controller, team, spawnPosition)
+function Player:initialize(team, spawnPosition)
     GameObject.initialize(self)
     self.depth = 1
-    self.controller = controller
+    self.controller = controller.dummy()
     self.team = team
     self.position = spawnPosition
     self.velocity = {0, 0}

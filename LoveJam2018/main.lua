@@ -8,15 +8,25 @@ require("libs.slam")
 require("libs.HC")
 require("libs.strict")
 
+-- Import this once here and set flags
+local msgpack = require("libs.MessagePack")
+msgpack.set_number("float")
+msgpack.set_string("string")
+
 local scenes = require("scenes")
 local utils = require("utils")
 local const = require("constants")
 local audio = require("audio")
+local fonts = require("media.fonts")
+local config = require("config")
+local console = require("libs.console")
+local clientCommands = require("consolecommands-client")
 
 function love.load(args)
     scenes.require()
     const.reload()
     audio.load()
+    config.load()
 
     -- load scenes
     for name, scene in pairs(scenes) do
@@ -29,15 +39,20 @@ function love.load(args)
     scenes.enter(scenes.game, "firsttest")
 end
 
-function love.update()
-
+function love.update(dt)
+    console.update(dt)
 end
 
 function love.draw(dt)
     scenes.current.draw(dt)
+    lg.setFont(fonts.console)
+    console.draw()
+    lg.setFont(fonts.default)
 end
 
 function love.keypressed(key)
+    console.keypressed(key)
+
     local ctrl = lk.isDown("lctrl") or lk.isDown("rctrl")
     if ctrl and key == "r" then
         const.reload()
@@ -45,6 +60,10 @@ function love.keypressed(key)
     if key == "f11" then
         utils.toggleFullscreen()
     end
+end
+
+function love.textinput(text)
+    console.textinput(text)
 end
 
 function love.resize(width, height)
@@ -88,7 +107,7 @@ function love.run()
                 end
             end
 
-            love.update()
+            love.update(const.SIM_DT)
             utils.callNonNil(scene.tick)
         end
 

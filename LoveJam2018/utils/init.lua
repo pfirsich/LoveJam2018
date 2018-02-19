@@ -67,6 +67,10 @@ function utils.autoFullscreen()
     if love.resize then love.resize(max.width, max.height) end
 end
 
+function utils.trim(s)
+  return s:match "^%s*(.-)%s*$"
+end
+
 for _, item in ipairs(lf.getDirectoryItems("utils")) do
     local path = "scenes/" .. item
     if item ~= "init.lua" then

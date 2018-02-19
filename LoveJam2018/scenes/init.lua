@@ -5,8 +5,9 @@ local mod = {}
 -- I think having `current`, `require` and `enter` inside `scenes` (even only via the metatable)
 -- is bad design, but I am not sure how to make it better
 local scenes = setmetatable({}, {__index = mod})
+scenes.empty = {load = utils.nop, draw = utils.nop}
 
-mod.current = nil
+mod.current = scenes.empty
 
 function mod.enter(scene, ...)
     if mod.current and mod.current.exit then
