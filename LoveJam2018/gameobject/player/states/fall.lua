@@ -98,7 +98,8 @@ function Fall:update()
 end
 
 function Fall:collision(other, mtv, preCollisionVelocity)
-    if preCollisionVelocity[2] > const.player.maxFallSpeed * const.player.fallImpactSoundThreshFactor then
+    if mtv[2] < -math.abs(mtv[1]) and
+            preCollisionVelocity[2] > const.player.maxFallSpeed * const.player.fallImpactSoundThreshFactor then
         audio.play("fallimpact", self.player.position)
     end
 end
