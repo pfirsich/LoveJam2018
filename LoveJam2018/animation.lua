@@ -111,7 +111,7 @@ function AnimationState:addAnimation(name, animation)
 end
 
 function AnimationState:play(name)
-    assert(self.animations[name])
+    assert(self.animations[name], name)
     self.current = name
     self.time = 0
 end

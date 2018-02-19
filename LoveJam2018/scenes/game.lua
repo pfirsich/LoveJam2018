@@ -255,13 +255,7 @@ function scene.mousepressed(x, y, button)
 end
 
 function scene.keypressed(key)
-    if key == "j" then
-        scene.postMessage("Test system message", "system")
-    elseif key == "k" then
-        scene.postMessage("Test admin message", "admin")
-    elseif key == "l" then
-        scene.postMessage("Test regular message", "other")
-    end
+
 end
 
 return scene

@@ -15,6 +15,31 @@ local net = require("net")
 local Player = class("Player", GameObject)
 GameObject.classes.Player = Player
 
+local function frameAnim(path, from, to)
+    local anim = animation.Animation(1.0)
+    anim:addFrames(animation.frameSequence(path, from, to))
+    return anim
+end
+
+local playerAnimations = {
+    run =  frameAnim("media/ninja/run%d.png", 1, 8),
+    sneak = frameAnim("media/ninja/sneak%d.png", 1, 6),
+    idle = frameAnim("media/ninja/idle%d.png", 1, 2),
+    attack_side = frameAnim("media/ninja/attack_side.png", 1, 1),
+    attack_up = frameAnim("media/ninja/attack_up.png", 1, 1),
+    attack_down = frameAnim("media/ninja/attack_down.png", 1, 1),
+    dodge = frameAnim("media/ninja/dodge.png", 1, 1),
+    jumpsquat = frameAnim("media/ninja/jump1.png", 1, 1),
+    jump = frameAnim("media/ninja/jump2.png", 1, 1),
+    fall = frameAnim("media/ninja/fall%d.png", 1, 2),
+    land = frameAnim("media/ninja/land.png", 1, 1),
+    climbV = frameAnim("media/ninja/climbV%d.png", 1, 4),
+    climbH = frameAnim("media/ninja/climbH%d.png", 1, 4),
+    climbVstop = frameAnim("media/ninja/climbV1.png", 1, 1),
+    climbHstop = frameAnim("media/ninja/climbH%d.png", 1, 2),
+    dash = frameAnim("media/ninja/dash.png", 1, 1),
+}
+
 function Player:initialize(team, position)
     GameObject.initialize(self)
     self.depth = 1
@@ -43,32 +68,13 @@ function Player:initialize(team, position)
     self._hitboxIdCounter = 0
 
     self.animation = animation.AnimationState()
-    self:addAnimation("run", "media/ninja/run%d.png", 1, 8)
-    self:addAnimation("sneak", "media/ninja/sneak%d.png", 1, 6)
-    self:addAnimation("idle", "media/ninja/idle%d.png", 1, 2)
-    self:addAnimation("attack_side", "media/ninja/attack_side.png", 1, 1)
-    self:addAnimation("attack_up", "media/ninja/attack_up.png", 1, 1)
-    self:addAnimation("attack_down", "media/ninja/attack_down.png", 1, 1)
-    self:addAnimation("dodge", "media/ninja/dodge.png", 1, 1)
-    self:addAnimation("jumpsquat", "media/ninja/jump1.png", 1, 1)
-    self:addAnimation("jump", "media/ninja/jump2.png", 1, 1)
-    self:addAnimation("fall", "media/ninja/fall%d.png", 1, 2)
-    self:addAnimation("land", "media/ninja/land.png", 1, 1)
-    self:addAnimation("climbV", "media/ninja/climbV%d.png", 1, 4)
-    self:addAnimation("climbH", "media/ninja/climbH%d.png", 1, 4)
-    self:addAnimation("climbVstop", "media/ninja/climbV1.png", 1, 1)
-    self:addAnimation("climbHstop", "media/ninja/climbH%d.png", 1, 2)
-    self:addAnimation("dash", "media/ninja/dash.png", 1, 1)
+    for name, anim in pairs(playerAnimations) do
+        self.animation:addAnimation(name, anim)
+    end
 
     self:setState(states.Wait)
 
     self.dynamic = true
-end
-
-function Player:addAnimation(name, path, from, to, duration)
-    local anim = animation.Animation(duration or 1.0)
-    anim:addFrames(animation.frameSequence(path, from, to))
-    self.animation:addAnimation(name, anim)
 end
 
 local serializedFields = {
@@ -192,6 +198,11 @@ function Player:updateFlipped(dir)
     elseif dir[1] < 0 then
         self.flipped = true
     end
+end
+
+function Player:destroy()
+    self.state:exit(states.Base(self))
+    GameObject.collider:remove(self.shape)
 end
 
 function Player:update()
