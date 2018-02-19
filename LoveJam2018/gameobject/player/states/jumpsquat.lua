@@ -1,6 +1,7 @@
 local utils = require("utils")
 local const = require("constants")
 local class = require("libs.class")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -24,9 +25,13 @@ function JumpSquat:update()
     player:friction(const.player.jumpSquatFriction)
 
     if player.time - self.start > const.player.jumpSquatDuration then
+        local shorthop = not player.controller.jump.state
         local factor = 1.0
-        if not player.controller.jump.state then
+        if shorthop then
             factor = const.player.shorthopFactor
+            audio.play("shorthop", player.position)
+        else
+            audio.play("jump", player.position)
         end
         player.velocity[2] = -const.player.jumpStartSpeed * factor
 
@@ -34,7 +39,7 @@ function JumpSquat:update()
         player.velocity[1] = player.velocity[1] + player.moveDir[1] * const.player.jumpMoveDirSpeed
         player.velocity[1] = utils.math.clampAbs(player.velocity[1], const.player.jumpMaxMoveSpeed)
 
-        self.player.animation:play("jump")
+        player.animation:play("jump")
         player:setState(states.Fall)
     end
 end

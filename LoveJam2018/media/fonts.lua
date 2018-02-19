@@ -1,5 +1,6 @@
 local fonts = {}
 
+fonts.small = lg.newFont(14)
 fonts.default = lg.newFont(18)
 fonts.big = lg.newFont(22)
 fonts.bigger = lg.newFont(26)

@@ -1,6 +1,7 @@
 local utils = require("utils")
 local const = require("constants")
 local class = require("libs.class")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -11,10 +12,20 @@ function Run:initialize(player, ...)
 end
 
 function Run:enter()
+    self:stepSound()
 end
 
 function Run:exit(newState)
 
+end
+
+function Run:stepSound()
+    if self.player.controller.sprint.state then
+        audio.play("runstep", self.player.position)
+    else
+        audio.play("step", self.player.position)
+    end
+    self.stepAccumulator = 0
 end
 
 function Run:update()
@@ -36,6 +47,16 @@ function Run:update()
         if player.animation.current ~= "sneak" then
             player.animation:play("sneak")
         end
+    end
+
+    if player.controller.sprint.pressed then
+        audio.play("runstep", player.position)
+        self.stepAccumulator = 0
+    end
+
+    self.stepAccumulator = self.stepAccumulator + const.SIM_DT
+    if self.stepAccumulator > const.player.stepInterval then
+        self:stepSound()
     end
 
     if targetMoveSpeed > 0 and player.velocity[1] < targetMoveSpeed then

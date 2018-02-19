@@ -3,6 +3,7 @@ local class = require("libs.class")
 local states = require("gameobject.player.states.states")
 local vmath = require("utils.vmath")
 local Hitbox = require("gameobject.player.hitbox")
+local audio = require("audio")
 
 local Attack = class("Attack", states.Base)
 
@@ -56,6 +57,8 @@ function Attack:enter()
         vmath.mul(dirVec[self.dir], const.player.attackImpulse[dirClass[self.dir]]))
 
     player.animation:play("attack_" .. dirClass[self.dir])
+
+    audio.play("attack", player.position)
 end
 
 function Attack:exit(newState)

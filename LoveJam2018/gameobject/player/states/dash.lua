@@ -2,6 +2,7 @@ local utils = require("utils")
 local const = require("constants")
 local class = require("libs.class")
 local vmath = require("utils.vmath")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -28,6 +29,7 @@ function Dash:enter()
     player.canDash = false
     player.animation:play("dash")
     player:updateFlipped()
+    self.soundPlayed = false
 end
 
 function Dash:exit(newState)
@@ -38,6 +40,11 @@ function Dash:update()
     local player = self.player
 
     player:friction(self.friction, self.friction)
+
+    if player.time - self.start > const.player.dashSoundDelay and not self.soundPlayed then
+        audio.play("dash", player.position)
+        self.soundPlayed = true
+    end
 
     if player.time - self.start > const.player.dashDuration then
         player:setState(states.Fall)

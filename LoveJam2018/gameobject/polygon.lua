@@ -2,10 +2,11 @@ local utils = require("utils")
 local class = require("libs.class")
 local GameObject = require("gameobject")
 local Hitbox = require("gameobject.player.hitbox")
+local audio = require("audio")
 
 Polygon = class("Polygon", GameObject)
 
-function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destructible, openable)
+function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destructible, openable, climbable)
     GameObject.initialize(self)
 
     self.points = points
@@ -15,6 +16,7 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     self.transparent = transparent
     self.destructible = destructible
     self.openable = openable
+    self.climbable = true
 
     local triangles = lm.triangulate(points)
     local vertices = {}
@@ -32,6 +34,7 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     end
     self.triangles = triangles
     self.aabb = utils.math.getPolyAABB(self.points)
+    self.center = {utils.math.polygonCentroid(self.points)}
     self.mesh = lg.newMesh(vertices, "triangles", "static")
 
     if self.solid then
@@ -46,6 +49,8 @@ function Polygon:update()
     if self.destructible then
         local collisions = Hitbox.collider:collisions(self.shape)
         for other, mtv in pairs(collisions) do
+            self.solid = false -- do this so the sound is already undampened
+            audio.play("breakOpen", self.center)
             self.markedForDeletion = true
         end
     end
@@ -63,7 +68,11 @@ end
 
 function Polygon:interact()
     if self.openable then
-        self.solid = not self.solid
+        local solid = not self.solid
+        -- set it to false, to audio.play doesn't detect occlusion by this polygon itself
+        self.solid = false
+        audio.play("open", self.center)
+        self.solid = solid
     end
 end
 

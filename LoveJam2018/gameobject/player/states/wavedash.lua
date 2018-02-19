@@ -2,6 +2,7 @@ local utils = require("utils")
 local const = require("constants")
 local class = require("libs.class")
 local vmath = require("utils.vmath")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -14,6 +15,7 @@ end
 function Wavedash:enter()
     self.player.animation:play("land")
     self.player.canDash = true
+    audio.play("wavedash", self.player.position)
 end
 
 function Wavedash:exit(newState)

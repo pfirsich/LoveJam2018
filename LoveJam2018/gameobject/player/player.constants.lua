@@ -51,12 +51,14 @@ return {
         maxSprintSpeedFactor = 3.0,
         runEndSpeed = 10.0,
         runFriction = 2500.0,
+        stepInterval = 0.4,
 
         -- Fall
         fallAccelDur = 0.5,
         maxFallSpeed = 1200.0,
         fastFallThresh = 0.85,
         fastFallFactor = 1.7,
+        fallImpactSoundThreshFactor = 0.95,
 
         airMaxMoveSpeed = 450.0,
         airAcceleration = 400.0,
@@ -80,6 +82,7 @@ return {
         dashStartSpeedRemainder = 0.0,
         dashGroundFrictionFactor = 5.0,
         dashDuration = 0.3,
+        dashSoundDelay = 0.05,
 
         -- Parry
         parryDuration = 0.5,
@@ -91,6 +94,7 @@ return {
         clingSprintSpeed = 500.0,
         clingDeadzone = 0.5,
         clingWalljumpVel = {500, -1000},
+        clingStepInterval = 0.4,
 
         -- Wavedash
         wavedashFrictionFactor = 12.0,

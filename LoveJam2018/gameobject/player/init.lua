@@ -197,12 +197,13 @@ function Player:updateCollisions()
         if collides then
             if other._object.class == Polygon and other._object.solid then
                 self:move(mtv)
+                local preCollisionVelocity = vmath.copy(self.velocity)
                 local normal = mtv
                 local velNormal, velTangent = vmath.split(self.velocity, normal)
                 if vmath.dot(normal, velNormal) < 0.0 then -- velocity points into surface
                     self.velocity = velTangent
                 end
-                utils.callNonNil(self.state.collision, self.state, other, mtv)
+                utils.callNonNil(self.state.collision, self.state, other, mtv, preCollisionVelocity)
             end
         end
     end
@@ -244,14 +245,14 @@ function Player:postHudDraw()
     utils.callNonNil(self.state.postHudDraw, self.state)
 
     lg.setColor(0, 255, 0)
-    lg.setFont(fonts.big)
+    lg.setFont(fonts.small)
     lg.print(utils.inspect({
         position = self.position,
         velocity = self.velocity,
         onGround = self:onGround(),
         animation = self.animation.current,
-    }), 5, 30)
-    lg.print(self.state:tostring(), 5, 200)
+    }), 5, 35)
+    lg.print(self.state:tostring(), 5, 150)
 end
 
 return Player

@@ -3,17 +3,20 @@ lf = love.filesystem
 lm = love.math
 lk = love.keyboard
 
+require("libs.slam")
+-- import this once before strict is imported, since HC doesn't like strict.lua
 require("libs.HC")
-
 require("libs.strict")
 
 local scenes = require("scenes")
 local utils = require("utils")
 local const = require("constants")
+local audio = require("audio")
 
 function love.load(args)
     scenes.require()
     const.reload()
+    audio.load()
 
     -- load scenes
     for name, scene in pairs(scenes) do

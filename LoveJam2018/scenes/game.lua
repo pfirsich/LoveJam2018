@@ -7,6 +7,7 @@ local map = require("map")
 local camera = require("camera")
 local Player = require("gameobject.player")
 local Polygon = require("gameobject.polygon")
+local audio = require("audio")
 
 local scene = {name = "game"}
 
@@ -143,6 +144,9 @@ function scene.draw(dt)
 
     camera.push()
         player:draw(dt)
+
+        lg.setColor(255, 0, 0, 255)
+        lg.circle("fill", audio.listener[1], audio.listener[2], 20)
     camera.pop()
 
     lg.setColor(255, 255, 255, 255)
@@ -151,6 +155,12 @@ function scene.draw(dt)
     lg.setColor(100, 255, 100)
     lg.setFont(fonts.big)
     lg.print(love.timer.getFPS(), 5, 5)
+end
+
+function scene.mousepressed(x, y, button)
+    if button == 1 then
+        audio.listener = {camera.screenToWorld(x, y)}
+    end
 end
 
 return scene

@@ -1,6 +1,7 @@
 local const = require("constants")
 local utils = require("utils")
 local class = require("libs.class")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -94,6 +95,12 @@ function Fall:update()
     end
 
     player:interact()
+end
+
+function Fall:collision(other, mtv, preCollisionVelocity)
+    if preCollisionVelocity[2] > const.player.maxFallSpeed * const.player.fallImpactSoundThreshFactor then
+        audio.play("fallimpact", self.player.position)
+    end
 end
 
 return Fall

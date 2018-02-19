@@ -72,6 +72,7 @@ function parseEntity.polygon(mapData, entity)
         transparent = getComponent(entity, "transparent").value,
         destructible = getComponent(entity, "destructible").value,
         openable = getComponent(entity, "openable").value,
+        climbable = true,
     }
     mapData.polygons = mapData.polygons or {}
     table.insert(mapData.polygons, polygon)
@@ -105,7 +106,7 @@ function map.instance(mapData)
     -- level bounds
     local x, y, w, h = unpack(mapData.bounds)
     local boundW = 200
-    local params = {{255, 0, 0, 255}, true, false, false, false, false}
+    local params = {{255, 0, 0, 255}, true, false, false, false, false, false}
     Polygon(rectanglePolygon(x-boundW, y, boundW, h), unpack(params))
     Polygon(rectanglePolygon(x+w, y, boundW, h), unpack(params))
     Polygon(rectanglePolygon(x, y-boundW, w, boundW), unpack(params))

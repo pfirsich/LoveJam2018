@@ -5,6 +5,7 @@ local class = require("libs.class")
 local states = require("gameobject.player.states.states")
 local GameObject = require("gameobject")
 local HCshapes = require("libs.HC.shapes")
+local audio = require("audio")
 
 local Cling = class("Cling", states.Base)
 
@@ -20,6 +21,7 @@ function Cling:enter()
     self.player.canDash = true
     self.lastCollided = {}
     self.clingType = "V"
+    self.stepAccumulator = 0
 end
 
 function Cling:exit(newState)
@@ -43,8 +45,16 @@ function Cling:update()
 
     if vmath.len(player.velocity) < 1e-5 then
         player.animation:ensure("climb" .. self.clingType .. "stop")
+        -- so it won't trigger this frame, but the one after that immediately
+        self.stepAccumulator = const.player.clingStepInterval - const.SIM_DT * 1.5
     else
         player.animation:ensure("climb" .. self.clingType)
+    end
+
+    self.stepAccumulator = self.stepAccumulator + const.SIM_DT
+    if self.stepAccumulator > const.player.clingStepInterval then
+        audio.play("step", player.position)
+        self.stepAccumulator = 0
     end
 
     if player:onGround() and player.velocity[2] > 0 then
@@ -71,7 +81,7 @@ function Cling:update()
     local collisions = GameObject.collider:collisions(self.clingProbe)
     local collisionTypes = {}
     for other, mtv in pairs(collisions) do
-        if other._object.class == Polygon and other._object.solid then
+        if other._object.class == Polygon and other._object.solid and other._object.climbable then
             local normal = {mtv.x, mtv.y}
             if math.abs(normal[1]) > math.abs(normal[2]) * 0.5 then
                 collisionTypes[normal[1] > 0 and "L" or "R"] = true

@@ -2,6 +2,7 @@ local utils = require("utils")
 local const = require("constants")
 local class = require("libs.class")
 local vmath = require("utils.vmath")
+local audio = require("audio")
 
 local states = require("gameobject.player.states.states")
 
@@ -12,9 +13,11 @@ function Parry:initialize(player, ...)
 end
 
 function Parry:enter()
-    self.player.velocity = {0, 0}
-    self.player.invincibility = const.player.parryInvinc
-    self.player.animation:play("dodge")
+    local player = self.player
+    player.velocity = {0, 0}
+    player.invincibility = const.player.parryInvinc
+    player.animation:play("dodge")
+    audio.play("parry", player.position)
 end
 
 function Parry:exit(newState)
