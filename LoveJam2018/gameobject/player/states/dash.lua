@@ -59,9 +59,11 @@ function Dash:collision(other, mtv)
     if player:onGround() then
         player:setState(states.Wavedash)
     else
-        -- opposite of each other (velocity points into the collision)
-        if vmath.dot(mtv, player.velocity) < 0 then
-            player:setState(states.Cling)
+        if other._object.climbable then
+            -- opposite of each other (velocity points into the collision)
+            if vmath.dot(mtv, player.velocity) < 0 then
+                player:setState(states.Cling)
+            end
         end
     end
 end

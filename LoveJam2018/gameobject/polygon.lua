@@ -16,7 +16,7 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     self.transparent = transparent
     self.destructible = destructible
     self.openable = openable
-    self.climbable = true
+    self.climbable = climbable
 
     local triangles = lm.triangulate(points)
     local vertices = {}

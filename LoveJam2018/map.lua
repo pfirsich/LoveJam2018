@@ -100,7 +100,8 @@ end
 function map.instance(mapData)
     for _, polygon in ipairs(mapData.polygons) do
         Polygon(utils.table.unpackKeys(polygon,
-            {"points", "color", "solid", "kunaiSolid", "transparent", "destructible", "openable"}))
+            {"points", "color", "solid", "kunaiSolid", "transparent",
+            "destructible", "openable", "climbable"}))
     end
 
     -- level bounds
