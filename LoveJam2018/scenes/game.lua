@@ -24,8 +24,11 @@ function scene.enter(mapName)
     mapData = map.load(mapName)
     map.instance(mapData)
 
+    local joystick = love.joystick.getJoysticks()[1]
     local ctrl = controller.keyboard()
-    local ctrl = controller.gamepad(love.joystick.getJoysticks()[1])
+    if joystick and true then
+        ctrl = controller.gamepad(joystick)
+    end
     local team = "defenders"
     local spawnZone = utils.table.randomChoice(mapData.spawnZones[team])
     player = Player(ctrl, team, utils.math.randInRect(unpack(spawnZone)))
