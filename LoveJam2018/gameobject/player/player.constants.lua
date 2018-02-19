@@ -39,7 +39,10 @@ return {
             fall = 0.6,
         },
 
-        -- shared between states
+        teamColors = {
+            attackers = {255, 0, 0},
+            defenders = {0, 0, 255},
+        },
 
         -- Wait
         waitFriction = 1000.0, -- units/sec/sec

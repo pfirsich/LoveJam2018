@@ -5,6 +5,12 @@ local HC = require("libs.HC")
 
 local GameObject = class("GameObject")
 
+GameObject.classes = {}
+
+GameObject.world = {}
+GameObject.idMap = {}
+GameObject.collider = HC.new(const.colliderGridSize)
+
 function GameObject.resetWorld()
     GameObject.world = {}
     GameObject.idMap = {}
@@ -19,17 +25,8 @@ local function gameObjectCmp(a, b)
     return a.depth < b.depth
 end
 
-function GameObject.updateAll()
-    for _, object in ipairs(GameObject.world) do
-        object:update()
-    end
+function GameObject.depthSort()
     utils.table.stableSort(GameObject.world, gameObjectCmp)
-end
-
-function GameObject.drawAll(dt)
-    for _, object in ipairs(GameObject.world) do
-        object:draw(dt)
-    end
 end
 
 function GameObject.callAll(name, ...)
@@ -50,10 +47,19 @@ end
 
 function GameObject:initialize()
     table.insert(GameObject.world, self)
-    self.id = math.floor(lm.random(0, 2^52))
+    repeat
+        self.id = math.floor(lm.random(0, 2^52))
+    until GameObject.idMap[self.id] == nil
     GameObject.idMap[self.id] = self
     self.depth = 0
     self.markedForDeletion = false
+    self.owned = false
+end
+
+function GameObject:changeId(newId)
+    GameObject.idMap[self.id] = nil
+    self.id = newId
+    GameObject.idMap[self.id] = self
 end
 
 function GameObject:removeFromWorld()

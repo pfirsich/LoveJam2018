@@ -1,5 +1,7 @@
 local utils = require("utils")
+local GameObject = require("gameobject")
 local Polygon = require("gameobject.polygon")
+local console = require("libs.console")
 
 local map = {}
 
@@ -81,6 +83,7 @@ end
 function map.load(name)
     local fileData = utils.loveDoFile("media/maps/" .. name .. ".map")
     local mapData = {}
+    mapData.name = name
     for _, entity in ipairs(fileData.entities) do
         if parseEntity[entity.type] then
             parseEntity[entity.type](mapData, entity)
@@ -88,8 +91,8 @@ function map.load(name)
             print(("Ignored entity of type '%s'"):format(entity.type))
         end
     end
-    assert(mapData.bounds)
-    assert(mapData.spawnZones.defenders and mapData.spawnZones.attackers)
+    assert(mapData.bounds, "Need bounds object")
+    assert(mapData.spawnZones.defenders and mapData.spawnZones.attackers, "Need spawns for both teams")
     return mapData
 end
 
@@ -98,20 +101,33 @@ local function rectanglePolygon(x, y, w, h)
 end
 
 function map.instance(mapData)
+    console.print(("Instantiating map '%s'"):format(mapData.name))
+
+    GameObject.resetWorld()
+    local idCounter = utils.counter()
+
     for _, polygon in ipairs(mapData.polygons) do
-        Polygon(utils.table.unpackKeys(polygon,
+        local poly = Polygon(utils.table.unpackKeys(polygon,
             {"points", "color", "solid", "kunaiSolid", "transparent",
             "destructible", "openable", "climbable"}))
+        poly:changeId(idCounter:get())
     end
 
     -- level bounds
     local x, y, w, h = unpack(mapData.bounds)
     local boundW = 200
     local params = {{255, 0, 0, 255}, true, false, false, false, false, false}
-    Polygon(rectanglePolygon(x-boundW, y, boundW, h), unpack(params))
-    Polygon(rectanglePolygon(x+w, y, boundW, h), unpack(params))
-    Polygon(rectanglePolygon(x, y-boundW, w, boundW), unpack(params))
-    Polygon(rectanglePolygon(x, y+h, w, boundW), unpack(params))
+    local coords = {
+        {x-boundW, y,        boundW, h},
+        {x+w,      y,        boundW, h},
+        {x,        y-boundW, w,      boundW},
+        {x,        y+h,      w,      boundW},
+    }
+    for _, coord in ipairs(coords) do
+        local poly = Polygon(rectanglePolygon(unpack(coord)), unpack(params))
+        poly:changeId(idCounter:get())
+        poly.visible = false
+    end
 end
 
 return map

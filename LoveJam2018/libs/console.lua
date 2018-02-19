@@ -12,6 +12,7 @@ console.maxLines = 100
 console.drawLines = 30
 console.maxHistory = 20
 console.scrollNotice = true
+console.luaPrint = false
 
 -- actual state
 console.height = 0
@@ -70,6 +71,7 @@ function console.draw()
     if console.takenBy then
         lg.setScissor(0, 0, winW, math.max(0, height))
         lg.print(console.takenBy.text, margin, margin)
+        lg.setScissor(unpack(scissorBackup))
     else
         lg.setScissor(0, 0, winW, math.max(0, height - inputHeight))
         local index = #console.buffer >= console.maxLines and console.nextBufferIndex or 1
@@ -154,6 +156,9 @@ end
 function console.print(...)
     for i = 1, select("#", ...) do
         console.printStr(tostring(select(i, ...)))
+    end
+    if console.luaPrint then
+        print(...)
     end
 end
 
@@ -438,9 +443,9 @@ function optChooseHandler.keypressed(key)
     end
 
     if key == "return" then
+        console.takeOver()
         optChooseHandler.callback(optChooseHandler.current,
             optChooseHandler.options[optChooseHandler.current])
-        console.takeOver()
     end
 end
 

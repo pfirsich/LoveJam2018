@@ -2,6 +2,7 @@ lg = love.graphics
 lf = love.filesystem
 lm = love.math
 lk = love.keyboard
+lt = love.timer
 
 require("libs.slam")
 -- import this once before strict is imported, since HC doesn't like strict.lua
@@ -21,6 +22,8 @@ local fonts = require("media.fonts")
 local config = require("config")
 local console = require("libs.console")
 local clientCommands = require("consolecommands-client")
+local server = require("net.server")
+local client = require("net.client")
 
 function love.load(args)
     scenes.require()
@@ -36,7 +39,23 @@ function love.load(args)
         utils.callNonNil(scene.load)
     end
 
-    scenes.enter(scenes.game, "firsttest")
+    console.active = true
+    console.luaPrint = true
+    if args[2] == "--connect" then
+        scenes.enter(scenes.connect, args[3])
+    elseif args[2] == "--host" then
+        scenes.enter(scenes.server, args[3] or const.net.defaultPort)
+    else
+        console.chooseOption("", {"Host", "Connect"}, function(i, option)
+            if i == 1 then -- host
+                scenes.enter(scenes.server, const.net.defaultPort)
+            elseif i == 2 then
+                console.prompt("Please enter a ip/hostname to connect to:", function(str)
+                    scenes.enter(scenes.connect, str)
+                end)
+            end
+        end)
+    end
 end
 
 function love.update(dt)

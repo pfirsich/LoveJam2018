@@ -99,4 +99,15 @@ function console.commands.savedir()
     love.system.openURL(lf.getSaveDirectory())
 end
 
+function console.commands.admin(cmd)
+    cmd = utils.trim(cmd)
+    if cmd:len() == 0 then
+        console.prompt("Please enter the admin password of the server:", function(pw)
+            -- auth
+        end)
+    else
+        -- send command and execute remotely
+    end
+end
+
 return commands

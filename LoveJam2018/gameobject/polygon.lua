@@ -5,6 +5,11 @@ local Hitbox = require("gameobject.player.hitbox")
 local audio = require("audio")
 
 Polygon = class("Polygon", GameObject)
+GameObject.classes.Polygon = Polygon
+
+function Polygon.fromSerialization(serialized)
+    assert(true, "Polygons should not be created dynamically")
+end
 
 function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destructible, openable, climbable)
     GameObject.initialize(self)
@@ -17,6 +22,7 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     self.destructible = destructible
     self.openable = openable
     self.climbable = climbable
+    self.visible = true
 
     local triangles = lm.triangulate(points)
     local vertices = {}
@@ -43,6 +49,8 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
     end
 
     self.hinted = false
+
+    self.dynamic = self.openable or self.destructible
 end
 
 function Polygon:update()
@@ -80,6 +88,18 @@ function Polygon:destroy()
     if self.shape then
         GameObject.collider:remove(self.shape)
     end
+end
+
+local serializedFields = {
+    "solid",
+}
+
+function Polygon:serialize()
+    return net.serializeFields(self, serializedFields)
+end
+
+function Polygon:deserialize(serialized)
+    net.deserializeFields(self, serializedFields, serialized)
 end
 
 function Polygon:draw()

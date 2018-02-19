@@ -1,6 +1,11 @@
 local msgpack = require("libs.MessagePack")
 
-local values = {}
+
+local values = {
+    -- default values
+    nickname = "boi",
+    adminpw = "foobar42",
+}
 local config = setmetatable({}, {__index = values})
 
 function config.load()

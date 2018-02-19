@@ -10,16 +10,20 @@ local fonts = require("media.fonts")
 local camera = require("camera")
 local animation = require("animation")
 local controller = require("controller")
+local net = require("net")
 
 local Player = class("Player", GameObject)
+GameObject.classes.Player = Player
 
-function Player:initialize(team, spawnPosition)
+function Player:initialize(team, position)
     GameObject.initialize(self)
     self.depth = 1
     self.controller = controller.dummy()
     self.team = team
-    self.position = spawnPosition
+    self.nextTeam = nil
+    self.position = vmath.copy(position)
     self.velocity = {0, 0}
+
     local w, h = const.player.width, const.player.height
     --self.shape = GameObject.collider:rectangle(0, 0, w, h)
     self.shape = GameObject.collider:polygon(0,-h/2,  -w/2,0,  0,h/2,  w/2,0)
@@ -57,12 +61,45 @@ function Player:initialize(team, spawnPosition)
     self:addAnimation("dash", "media/ninja/dash.png", 1, 1)
 
     self:setState(states.Wait)
+
+    self.dynamic = true
 end
 
 function Player:addAnimation(name, path, from, to, duration)
     local anim = animation.Animation(duration or 1.0)
     anim:addFrames(animation.frameSequence(path, from, to))
     self.animation:addAnimation(name, anim)
+end
+
+local serializedFields = {
+    "team",
+    "position",
+    "velocity",
+    "time",
+    "invincibility",
+    "flipped",
+    "_animation",
+    "_state",
+}
+
+function Player.fromSerialization(serialized)
+    local team = net.getSerializedField(serializedFields, serialized, "team")
+    local position = net.getSerializedField(serializedFields, serialized, "position")
+    local player = Player(team, position)
+    return player
+end
+
+function Player:serialize()
+    self._animation = {self.animation.current, self.animation.time}
+    self._state = self.state:serialize()
+    return net.serializeFields(self, serializedFields)
+end
+
+function Player:deserialize(serialized)
+    net.deserializeFields(self, serializedFields, serialized)
+    self.animation.current = self._animation[1]
+    self.animation.time = self._animation[2]
+    self.state:deserialize(self._state)
 end
 
 function Player:setState(stateClass, ...)
@@ -223,7 +260,7 @@ function Player:draw(dt)
         self.animation.animations[self.animation.current].duration = animDur
     end
 
-    lg.setColor(255, 0, 0)
+    lg.setColor(const.player.teamColors[self.team])
 
     if self.invincibility > 0 then
         lg.setColor(255, 255, 255)

@@ -1,0 +1,536 @@
+return {
+	["entityFiles"] = {
+		[1] = "ninjagame-entities.lua",
+	},
+	["entities"] = {
+		[1] = {
+			["type"] = "levelbounds",
+			["components"] = {
+				[1] = {
+					["id"] = "core",
+					["hidden"] = false,
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "levelbounds",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = -201.20846498015,
+						[2] = -1205.2773230687,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -800.09471983817,
+						[2] = -5.6301630024791e-012,
+						[3] = 1192.9106510309,
+						[4] = -5.6301630024791e-012,
+						[5] = 1192.9106510309,
+						[6] = 1199.8759578851,
+						[7] = -800.09471983817,
+						[8] = 1199.8759578851,
+					},
+					["color"] = {
+						[1] = 40,
+						[2] = 60,
+						[3] = 130,
+						[4] = 255,
+					},
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["id"] = "polygon",
+					["textureTransforms"] = {
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+					},
+				},
+			},
+			["guid"] = 1,
+		},
+		[2] = {
+			["type"] = "polygon",
+			["components"] = {
+				[1] = {
+					["hidden"] = false,
+					["id"] = "core",
+					["componentType"] = "Core",
+					["name"] = "polygon",
+					["locked"] = false,
+				},
+				[2] = {
+					["keepAspect"] = true,
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = -426.30771967447,
+						[2] = -668.12570576895,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["rotation"] = 0,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -128.33348335905,
+						[2] = -20.33700009515,
+						[3] = 128.33348335905,
+						[4] = -20.33700009515,
+						[5] = 128.33348335905,
+						[6] = 20.33700009515,
+						[7] = -128.33348335905,
+						[8] = 20.33700009515,
+					},
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
+					["id"] = "polygon",
+				},
+				[4] = {
+					["label"] = "Solid",
+					["value"] = true,
+					["componentType"] = "MetadataBoolean",
+					["id"] = "solid",
+				},
+				[5] = {
+					["label"] = "Solid for Kunai",
+					["value"] = true,
+					["componentType"] = "MetadataBoolean",
+					["id"] = "kunaiSolid",
+				},
+				[6] = {
+					["label"] = "Transparent",
+					["value"] = false,
+					["componentType"] = "MetadataBoolean",
+					["id"] = "transparent",
+				},
+				[7] = {
+					["label"] = "Destructible",
+					["value"] = false,
+					["componentType"] = "MetadataBoolean",
+					["id"] = "destructible",
+				},
+				[8] = {
+					["label"] = "Openable",
+					["value"] = false,
+					["componentType"] = "MetadataBoolean",
+					["id"] = "openable",
+				},
+			},
+			["guid"] = 8,
+		},
+		[3] = {
+			["type"] = "polygon",
+			["components"] = {
+				[1] = {
+					["hidden"] = false,
+					["id"] = "core",
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "polygon",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = 413.82076701483,
+						[2] = -668.12570576895,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -128.33348335905,
+						[2] = -20.33700009515,
+						[3] = 128.33348335905,
+						[4] = -20.33700009515,
+						[5] = 128.33348335905,
+						[6] = 20.33700009515,
+						[7] = -128.33348335905,
+						[8] = 20.33700009515,
+					},
+					["id"] = "polygon",
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
+				},
+				[4] = {
+					["label"] = "Solid",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "solid",
+				},
+				[5] = {
+					["label"] = "Solid for Kunai",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "kunaiSolid",
+				},
+				[6] = {
+					["label"] = "Transparent",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "transparent",
+				},
+				[7] = {
+					["label"] = "Destructible",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "destructible",
+				},
+				[8] = {
+					["label"] = "Openable",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "openable",
+				},
+			},
+			["guid"] = 9,
+		},
+		[4] = {
+			["type"] = "polygon",
+			["components"] = {
+				[1] = {
+					["hidden"] = false,
+					["id"] = "core",
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "polygon",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = -5.5422004644694,
+						[2] = -317.48777309395,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -128.33348335905,
+						[2] = -20.33700009515,
+						[3] = 128.33348335905,
+						[4] = -20.33700009515,
+						[5] = 128.33348335905,
+						[6] = 20.33700009515,
+						[7] = -128.33348335905,
+						[8] = 20.33700009515,
+					},
+					["id"] = "polygon",
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 0,
+						[3] = 0,
+						[4] = 255,
+					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
+				},
+				[4] = {
+					["label"] = "Solid",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "solid",
+				},
+				[5] = {
+					["label"] = "Solid for Kunai",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "kunaiSolid",
+				},
+				[6] = {
+					["label"] = "Transparent",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "transparent",
+				},
+				[7] = {
+					["label"] = "Destructible",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "destructible",
+				},
+				[8] = {
+					["label"] = "Openable",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "openable",
+				},
+			},
+			["guid"] = 10,
+		},
+		[5] = {
+			["type"] = "spawnzone",
+			["components"] = {
+				[1] = {
+					["id"] = "core",
+					["hidden"] = false,
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "spawnzone",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = -429.11282313587,
+						[2] = -771.2132579754,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -97.47734528365,
+						[2] = -32.2586898061,
+						[3] = 100.28244874505,
+						[4] = -32.2586898061,
+						[5] = 100.28244874505,
+						[6] = 32.2586898061,
+						[7] = -97.47734528365,
+						[8] = 32.2586898061,
+					},
+					["color"] = {
+						[1] = 0,
+						[2] = 255,
+						[3] = 0,
+						[4] = 100,
+					},
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["id"] = "polygon",
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
+				},
+				[4] = {
+					["label"] = "Defender?",
+					["componentType"] = "MetadataBoolean",
+					["value"] = true,
+					["id"] = "team",
+				},
+			},
+			["guid"] = 11,
+		},
+		[6] = {
+			["type"] = "spawnzone",
+			["components"] = {
+				[1] = {
+					["hidden"] = false,
+					["id"] = "core",
+					["componentType"] = "Core",
+					["locked"] = false,
+					["name"] = "spawnzone",
+				},
+				[2] = {
+					["scale"] = {
+						[1] = 1,
+						[2] = 1,
+					},
+					["position"] = {
+						[1] = 418.02842220693,
+						[2] = -771.2132579754,
+					},
+					["id"] = "transforms",
+					["componentType"] = "Transforms",
+					["rotation"] = 0,
+					["offset"] = {
+						[1] = 0,
+						[2] = 0,
+					},
+					["keepAspect"] = true,
+				},
+				[3] = {
+					["points"] = {
+						[1] = -97.47734528365,
+						[2] = -32.2586898061,
+						[3] = 100.28244874505,
+						[4] = -32.2586898061,
+						[5] = 100.28244874505,
+						[6] = 32.2586898061,
+						[7] = -97.47734528365,
+						[8] = 32.2586898061,
+					},
+					["id"] = "polygon",
+					["componentType"] = "SimplePolygon",
+					["buildMesh"] = true,
+					["renderWireframe"] = false,
+					["imagePath"] = "",
+					["renderWholeTexture"] = false,
+					["color"] = {
+						[1] = 0,
+						[2] = 255,
+						[3] = 0,
+						[4] = 100,
+					},
+					["textureTransforms"] = {
+						["offset"] = {
+							[1] = 0,
+							[2] = 0,
+						},
+						["rotation"] = 0,
+						["scale"] = {
+							[1] = 1,
+							[2] = 1,
+						},
+					},
+				},
+				[4] = {
+					["label"] = "Defender?",
+					["componentType"] = "MetadataBoolean",
+					["value"] = false,
+					["id"] = "team",
+				},
+			},
+			["guid"] = 12,
+		},
+	},
+	["componentStatics"] = {
+		["Sprite"] = {
+		},
+		["Transforms"] = {
+			["showCenterMarkers"] = true,
+		},
+		["MetadataString"] = {
+		},
+		["Core"] = {
+			["gridSpacing"] = 200,
+			["showGrid"] = true,
+			["backgroundColor"] = {
+				[1] = 0,
+				[2] = 0,
+				[3] = 0,
+				[4] = 255,
+			},
+			["showEntityBorders"] = true,
+			["showMouseWorldPosition"] = false,
+			["showNames"] = true,
+			["showDetails"] = true,
+		},
+		["SimplePolygon"] = {
+		},
+		["MetadataNumber"] = {
+		},
+		["MetadataBoolean"] = {
+		},
+		["BorderedFannedPolygon"] = {
+		},
+	},
+}

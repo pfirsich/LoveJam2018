@@ -8,8 +8,8 @@ function love.conf(t)
 
     t.window.title = "LoveJam2018 - Ninjagame"
     t.window.icon = nil
-    t.window.width = 1600
-    t.window.height = 900
+    t.window.width = 1366
+    t.window.height = 768
     t.window.borderless = false
     t.window.resizable = false
     t.window.minwidth = 1

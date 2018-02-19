@@ -1,5 +1,6 @@
 local const = require("constants")
 local utils = require("utils")
+local vmath = require("utils.vmath")
 local GameObject = require("gameobject")
 local controller = require("controller")
 local fonts = require("media.fonts")
@@ -8,39 +9,72 @@ local camera = require("camera")
 local Player = require("gameobject.player")
 local Polygon = require("gameobject.polygon")
 local audio = require("audio")
+local client = require("net.client")
+local console = require("libs.console")
 
 local scene = {name = "game"}
 
-local mapData = nil
-local player = nil
-local shadowMesh = nil
-local shadowCanvas = nil
+scene.player = nil
+scene.mapData = nil
+
+local shadowMesh = lg.newMesh(2048, "triangles", "dynamic")
+local shadowCanvas = lg.newCanvas()
 local background = lg.newImage("media/bg.png")
+local messageFeed = {}
+local maxFeedMessages = 15
 
 function scene.enter(mapName)
     lg.setBackgroundColor(20, 25, 100)
+    love.window.maximize()
 
-    GameObject.resetWorld()
+    if mapName then
+        scene.loadMap(mapName)
+    end
+end
 
-    mapData = map.load(mapName)
-    map.instance(mapData)
+function scene.loadMap(mapName)
+    scene.mapData = map.load(mapName)
+    map.instance(scene.mapData)
+end
 
-    local team = "defenders"
-    local spawnZone = utils.table.randomChoice(mapData.spawnZones[team])
-    player = Player(team, utils.math.randInRect(unpack(spawnZone)))
-    scene.setController(love.joystick.getJoysticks()[1])
+local function getSpawnPoint(team)
+    local spawnZone = utils.table.randomChoice(scene.mapData.spawnZones[team])
+    return utils.math.randInRect(unpack(spawnZone))
+end
 
-    camera.bounds = mapData.bounds
+function scene.respawn()
+    local player = scene.player
+    if player then
+        player.team = player.nextTeam or player.team
+        player.nextTeam = nil
+        player.position = vmath.copy(getSpawnPoint(player.team))
+    end
+end
 
-    shadowMesh = lg.newMesh(2048, "triangles", "dynamic")
-    shadowCanvas = lg.newCanvas()
+function scene.joinTeam(team)
+    if not scene.player then
+        if team == "attackers" or team == "defenders" then
+            scene.player = Player(team, getSpawnPoint(team))
+            scene.player.owned = true
+            scene.setController(love.joystick.getJoysticks()[1])
+        end
+    else
+        if team == "spectator" then
+            scene.player:removeFromWorld()
+            scene.player = nil
+        else
+            scene.player.nextTeam = team
+        end
+    end
 end
 
 function scene.setController(joystick)
-    if joystick then
-        player.controller = controller.gamepad(joystick)
-    else
-        player.controller = controller.keyboard()
+    if scene.player then
+        if joystick then
+            scene.player.controller = controller.gamepad(joystick)
+        else
+            scene.player.controller = controller.keyboard()
+        end
     end
 end
 
@@ -102,7 +136,7 @@ local function updateShadowMesh()
         if object.class == Polygon and object.solid and not object.transparent then
             -- we can't just check if every point is in the rect, since we might miss some intersections
             if utils.math.rectIntersect(object.aabb, camRect) then
-                extrudePoly(vertices, object.points, player.position)
+                extrudePoly(vertices, object.points, scene.player.position)
             end
         end
     end
@@ -112,15 +146,58 @@ local function updateShadowMesh()
 end
 
 function scene.tick()
-    GameObject.updateAll()
-    GameObject.removeMarked()
+    client.update()
 
     -- camera
-    camera.target.position = player.position
-    camera.approachTarget(const.cameraPosInterpFactor, const.cameraScaleInterpFactor)
-    camera.clampToBounds()
+    if scene.player then
+        camera.target.position = scene.player.position
+        camera.approachTarget(const.cameraPosInterpFactor, const.cameraScaleInterpFactor)
+        camera.bounds = scene.mapData.bounds
+        camera.clampToBounds()
+    else
+        local x, y, w, h = unpack(scene.mapData.bounds)
+        camera.position = {x + w/2, y + h/2}
+        local winW, winH = lg.getDimensions()
+        local scaleX, scaleY = winW / w, winH / h
+        camera.scale = math.min(scaleX, scaleY)
+    end
 
-    updateShadowMesh()
+    if scene.player then
+        updateShadowMesh()
+    end
+end
+
+function scene.postMessage(msg, lvl)
+    table.insert(messageFeed, 1, {msg = msg, lvl = lvl, time = lt.getTime()})
+    if #messageFeed > maxFeedMessages then
+        table.remove(messageFeed)
+    end
+end
+
+local function drawMessageFeed()
+    local winW, winH = lg.getDimensions()
+    local font = lg.getFont()
+
+    local maxWidth = 0
+    for i = #messageFeed, 1, -1 do
+        if lt.getTime() - messageFeed[i].time > const.messageDuration then
+            table.remove(messageFeed, i)
+        else
+            maxWidth = math.max(maxWidth, font:getWidth(messageFeed[i].msg))
+        end
+    end
+
+    local margin = 10
+    local y = winH - margin
+    lg.setColor(const.messageFeedBgColor)
+    local h = font:getHeight() * #messageFeed + margin*2
+    lg.rectangle("fill", margin, y - h, maxWidth + margin*2, h)
+    y = y - margin
+    for _, msg in ipairs(messageFeed) do
+        y = y - font:getHeight()
+        lg.setColor(const.messageLevelColors[msg.lvl or "other"])
+        lg.print(msg.msg, margin*2, y)
+    end
 end
 
 function scene.draw(dt)
@@ -132,22 +209,29 @@ function scene.draw(dt)
 
     camera.push()
         for _, object in ipairs(GameObject.world) do
-            if object ~= player then
+            if object ~= scene.player then
                 object:draw(dt)
             end
         end
-
-        lg.setCanvas(shadowCanvas)
-        lg.clear(0, 0, 0, 0)
-        lg.setColor(0, 0, 0, 255)
-        lg.draw(shadowMesh)
-        lg.setCanvas()
     camera.pop()
-    lg.setColor(0, 0, 0, 120)
-    lg.draw(shadowCanvas)
+
+    if scene.player then
+        camera.push()
+            lg.setCanvas(shadowCanvas)
+            lg.clear(0, 0, 0, 0)
+            lg.setColor(0, 0, 0, 255)
+            lg.draw(shadowMesh)
+            lg.setCanvas()
+        camera.pop()
+
+        lg.setColor(0, 0, 0, 120)
+        lg.draw(shadowCanvas)
+    end
 
     camera.push()
-        player:draw(dt)
+        if scene.player then
+            scene.player:draw(dt)
+        end
 
         lg.setColor(255, 0, 0, 255)
         lg.circle("fill", audio.listener[1], audio.listener[2], 20)
@@ -155,6 +239,9 @@ function scene.draw(dt)
 
     lg.setColor(255, 255, 255, 255)
     GameObject.callAll("postHudDraw")
+
+    lg.setFont(fonts.huge)
+    drawMessageFeed()
 
     lg.setColor(100, 255, 100)
     lg.setFont(fonts.big)
@@ -164,6 +251,16 @@ end
 function scene.mousepressed(x, y, button)
     if button == 1 then
         audio.listener = {camera.screenToWorld(x, y)}
+    end
+end
+
+function scene.keypressed(key)
+    if key == "j" then
+        scene.postMessage("Test system message", "system")
+    elseif key == "k" then
+        scene.postMessage("Test admin message", "admin")
+    elseif key == "l" then
+        scene.postMessage("Test regular message", "other")
     end
 end
 
