@@ -300,7 +300,7 @@ end
 function Player:postHudDraw()
     utils.callNonNil(self.state.postHudDraw, self.state)
 
-    lg.setColor(0, 255, 0)
+--[[    lg.setColor(0, 255, 0)
     lg.setFont(fonts.small)
     lg.print(utils.inspect({
         position = self.position,
@@ -308,7 +308,7 @@ function Player:postHudDraw()
         onGround = self:onGround(),
         animation = self.animation.current,
     }), 5, 35)
-    lg.print(self.state:tostring(), 5, 150)
+    lg.print(self.state:tostring(), 5, 150)--]]
 end
 
 return Player

@@ -26,6 +26,7 @@ local maxFeedMessages = 15
 
 function scene.enter(mapName)
     lg.setBackgroundColor(20, 25, 100)
+    love.window.maximize()
 
     if mapName then
         scene.loadMap(mapName)
