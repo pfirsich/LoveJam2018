@@ -16,6 +16,8 @@ server.maxPlayers = 10
 local peerIdMap = {}
 local peerIdCounter = utils.counter()
 
+local mapCounter = utils.counter()
+
 local msgHandlers = {}
 
 function server.start(port)
@@ -34,6 +36,17 @@ function server.start(port)
         error(("Could not host on port %d!"):format(port))
     end
     server.host:compress_with_range_coder()
+
+    net.hosting = false
+end
+
+local function broadcast(...)
+    server.host:broadcast(net.wrapArguments(...))
+end
+
+local function getOpenTeams()
+    -- TODO: implement this properly
+    return {"attackers", "defenders", "spectate"}
 end
 
 function server.update()
@@ -50,6 +63,7 @@ function server.update()
         end
         event = server.host:service()
     end
+    net.Rpc.callBuffer()
 
     for _, object in ipairs(GameObject.world) do
         if object.dynamic and object.owned then
@@ -58,12 +72,38 @@ function server.update()
     end
     GameObject.removeMarked()
 
-    server.host:broadcast(net.wrapArguments(net.msgTypes.S.UPDATE, {state = net.getWorldUpdate()}))
+    local worldUpdate = net.getWorldUpdate()
+    if next(worldUpdate) then -- non-empty
+        broadcast(net.msgTypes.S.UPDATE,
+            {state = worldUpdate, map = mapCounter.value}, "unreliable")
+    end
+    if #net.Rpc.buffer > 0 then
+        -- HACK CITY
+        for i = 1, server.host:peer_count() do
+            local peer = server.host:get_peer(i)
+            if peer:state() == "connected" then
+                local rpcs = {}
+                for _, rpc in ipairs(net.Rpc.buffer) do
+                    if rpc.from ~= peer then
+                        table.insert(rpcs, rpc)
+                    end
+                end
+                np.send(peer, net.msgTypes.S.RPC, {rpcs = rpcs})
+            end
+        end
+    end
+
+    net.Rpc.callBuffer()
 end
 
-local function getOpenTeams()
-    -- TODO: implement this properly
-    return {"attackers", "defenders", "spectate"}
+function server.changeMap(map)
+    game.loadMap(map)
+    -- server owns all level objects
+    for _, object in ipairs(GameObject.world) do
+        object.owned = true
+    end
+    broadcast(net.msgTypes.S.MAP,
+        {map = map, mapCounter = mapCounter:get(), teams = getOpenTeams()})
 end
 
 local function nicknameTaken(nickname)
@@ -92,8 +132,7 @@ end
 -- lvl in {"system", "admin", "other"}
 local function sendChat(msg, lvl)
     console.print(("(%s) %s"):format(lvl, msg))
-    server.host:broadcast(net.wrapArguments(
-        net.msgTypes.S.CHAT, {msg = msg, lvl = lvl or "admin"}))
+    broadcast(net.msgTypes.S.CHAT, {msg = msg, lvl = lvl or "admin"})
 end
 
 msgHandlers[net.msgTypes.C.CONNECT] = function(peer, msg)
@@ -146,7 +185,16 @@ msgHandlers[net.msgTypes.C.JOIN] = function(peer, msg)
 end
 
 msgHandlers[net.msgTypes.C.UPDATE] = function(peer, msg)
-    net.applyWorldUpdate(msg.state, peerIdMap[peer])
+    if msg.map == mapCounter.value then
+        net.applyWorldUpdate(msg.state, peerIdMap[peer])
+    end
+end
+
+msgHandlers[net.msgTypes.C.RPC] = function(peer, msg)
+    for _, rpc in ipairs(msg.rpcs) do
+        rpc.from = peer
+    end
+    utils.table.extend(net.Rpc.buffer, msg.rpcs)
 end
 
 return server

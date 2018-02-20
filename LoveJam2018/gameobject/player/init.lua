@@ -139,6 +139,13 @@ function Player:enterDash()
     end
 end
 
+Player.interactRpc = net.Rpc(function(id)
+    local obj = GameObject.getById(id)
+    if obj and obj.owned and obj.interact then
+        obj:interact()
+    end
+end)
+
 function Player:interact()
     local dir = self.flipped and {-1, 0} or {1, 0}
     local offset = const.player.width/2 + const.player.interactDistance/2
@@ -149,7 +156,7 @@ function Player:interact()
         if obj.hintInteract then
             obj:hintInteract()
             if self.controller.use.pressed then
-                obj:interact()
+                Player.interactRpc(obj.id)
             end
         end
     end

@@ -35,6 +35,7 @@ end
 function scene.loadMap(mapName)
     scene.mapData = map.load(mapName)
     map.instance(scene.mapData)
+    scene.player = nil
 end
 
 local function getSpawnPoint(team)

@@ -2,6 +2,7 @@ local const = require("constants")
 local utils = require("utils")
 local vmath = require("utils.vmath")
 local GameObject = require("gameobject")
+local net = require("net")
 
 local audio = {}
 
@@ -70,7 +71,7 @@ function audio.atten(soundName, dist)
     end
 end
 
-function audio.play(name, x, y)
+local function play(name, x, y)
     assert(sounds[name], "Unknown sound: " .. name)
     assert(x, "Must pass position to audio.play!")
     if y == nil then
@@ -105,6 +106,16 @@ function audio.play(name, x, y)
     else
         inst = sound.normal:play():setVolume(volume)
     end
+end
+
+local playRpc = net.Rpc(function(name, x, y)
+    if not net.hosting then
+        play(name, x, y)
+    end
+end)
+
+function audio.play(name, x, y)
+    playRpc(name, x, y)
 end
 
 return audio

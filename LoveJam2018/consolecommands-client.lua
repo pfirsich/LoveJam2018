@@ -3,6 +3,7 @@ local utils = require("utils")
 local console = require("libs.console")
 local game = require("scenes.game")
 local config = require("config")
+local client = require("net.client")
 
 local commands = {}
 
@@ -108,6 +109,10 @@ function console.commands.admin(cmd)
     else
         -- send command and execute remotely
     end
+end
+
+function console.commands.team(cmd)
+    client.teamScreen()
 end
 
 return commands

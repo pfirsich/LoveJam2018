@@ -8,7 +8,7 @@ end
 
 function Counter:get()
     self.value = self.value + 1
-    return self.value - 1
+    return self.value
 end
 
 return Counter

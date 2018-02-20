@@ -116,7 +116,7 @@ function map.instance(mapData)
     -- level bounds
     local x, y, w, h = unpack(mapData.bounds)
     local boundW = 200
-    local params = {{255, 0, 0, 255}, true, false, false, false, false, false}
+    local params = {{100, 100, 100, 255}, true, false, false, false, false, false}
     local coords = {
         {x-boundW, y,        boundW, h},
         {x+w,      y,        boundW, h},

@@ -1,13 +1,17 @@
 local msgpack = require("libs.MessagePack")
 require("enet")
 
+local class = require("libs.class")
 local utils = require("utils")
 local GameObject = require("gameobject")
 
 local net = {}
 
+net.hosting = false
+
 net.msgTypes = {
     S = utils.table.enum({ -- server
+        "RPC",
         "DENY", -- reason
         "ACCEPT", -- send playerId, send nickname back, possible teams to join (atk, def, spec), map to load, state diff
         "NICKNAME", -- send nickname back
@@ -20,13 +24,14 @@ net.msgTypes = {
         "UPDATE",
     }),
     C = utils.table.enum({ -- client
+        "RPC",
         "CONNECT", -- send nickname
         "NICKNAME", -- send new nickname
         "TEAMS", -- empty
         "CHAT", -- message
         "JOIN", -- team
         "UPDATE",
-    })
+    }),
 }
 
 function net.serializeFields(obj, fields)
@@ -85,7 +90,7 @@ end
 function net.wrapArguments(msgType, data, flags)
     if flags == true then flags = "unreliable" end
     data.T = msgType
-    if flags == "reliable" then
+    if flags == nil or flags == "reliable" then
         data.R = true
     end
     return msgpack.pack(data), 0, flags
@@ -96,5 +101,38 @@ function net.send(peer, msgType, data, flags)
         peer:send(net.wrapArguments(msgType, data, flags))
     end
 end
+
+local Rpc = class("Rpc")
+net.Rpc = Rpc
+
+Rpc.rpcIdCounter = utils.counter()
+Rpc.rpcMap = {}
+Rpc.buffer = {}
+
+function Rpc.callBuffer()
+    if #Rpc.buffer > 0 then
+        local buffer = Rpc.buffer
+        -- make this free right away, so we can emit new events while calling
+        Rpc.buffer = {}
+        for _, rpc in ipairs(buffer) do
+            local rpcObj = Rpc.rpcMap[rpc[1]]
+            assert(rpcObj)
+            rpcObj.func(select(2, unpack(rpc)))
+        end
+    end
+end
+
+function Rpc:initialize(func)
+    self.id = Rpc.rpcIdCounter:get()
+    Rpc.rpcMap[self.id] = self
+    self.func = func
+end
+
+-- "..." should be msgpack serializable
+function Rpc:emit(...)
+    table.insert(Rpc.buffer, {self.id, ...})
+end
+
+Rpc.__call = Rpc.emit
 
 return net

@@ -2,6 +2,7 @@ local msgpack = require("libs.MessagePack")
 local console = require("libs.console")
 require("enet")
 
+local utils = require("utils")
 local config = require("config")
 local net = require("net")
 local GameObject = require("gameobject")
@@ -11,6 +12,8 @@ local client = {}
 
 client.playerId = nil
 client.connected = false
+
+local mapCounter = 0
 
 local msgHandlers = {}
 
@@ -34,6 +37,7 @@ function client.update()
         end
         event = client.host:service()
     end
+    net.Rpc.callBuffer("first")
 
     for _, object in ipairs(GameObject.world) do
         if object.dynamic and object.owned then
@@ -43,11 +47,21 @@ function client.update()
     GameObject.removeMarked()
 
     -- send update
-    net.send(client.server, net.msgTypes.C.UPDATE, {state = net.getWorldUpdate(true)})
+    local worldUpdate = net.getWorldUpdate(true)
+    if next(worldUpdate) then
+        net.send(client.server, net.msgTypes.C.UPDATE,
+            {state = worldUpdate, map = mapCounter}, "unreliable")
+    end
+    if #net.Rpc.buffer > 0 then
+        net.send(client.server, net.msgTypes.C.RPC, {rpcs = net.Rpc.buffer})
+    end
+
+    net.Rpc.callBuffer("second")
 end
 
-local function teamScreen(teams)
+function client.teamScreen(teams)
     local options = {}
+    console.active = true
     console.chooseOption("", teams, function(i, option)
         scenes.game.joinTeam(option)
         console.active = false
@@ -63,7 +77,7 @@ msgHandlers[net.msgTypes.S.ACCEPT] = function(msg)
     client.serverNickname = msg.nickname
     scenes.game.loadMap(msg.map)
     net.applyWorldUpdate(msg.state)
-    teamScreen(msg.teams)
+    client.teamScreen(msg.teams)
     client.connected = true
 end
 
@@ -79,7 +93,9 @@ msgHandlers[net.msgTypes.S.TEAMS] = function(msg)
 end
 
 msgHandlers[net.msgTypes.S.MAP] = function(msg)
-
+    scenes.game.loadMap(msg.map)
+    mapCounter = msg.mapCounter
+    client.teamScreen(msg.teams)
 end
 
 msgHandlers[net.msgTypes.S.CHAT] = function(msg)
@@ -99,7 +115,13 @@ msgHandlers[net.msgTypes.S.ROUND_END] = function(msg)
 end
 
 msgHandlers[net.msgTypes.S.UPDATE] = function(msg)
-    net.applyWorldUpdate(msg.state)
+    if msg.map == mapCounter then
+        net.applyWorldUpdate(msg.state)
+    end
+end
+
+msgHandlers[net.msgTypes.S.RPC] = function(msg)
+    utils.table.extend(net.Rpc.buffer, msg.rpcs)
 end
 
 return client

@@ -22,6 +22,7 @@ local fonts = require("media.fonts")
 local config = require("config")
 local console = require("libs.console")
 local clientCommands = require("consolecommands-client")
+local serverCommands = require("consolecommands-server")
 local server = require("net.server")
 local client = require("net.client")
 

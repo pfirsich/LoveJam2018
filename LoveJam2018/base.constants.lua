@@ -14,4 +14,6 @@ return {
         admin = {0, 0, 255},
         other = {255, 255, 255},
     },
+
+    hintDuration = 0.1,
 }

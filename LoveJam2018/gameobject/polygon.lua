@@ -1,8 +1,10 @@
+local const = require("constants")
 local utils = require("utils")
 local class = require("libs.class")
 local GameObject = require("gameobject")
 local Hitbox = require("gameobject.player.hitbox")
 local audio = require("audio")
+local net = require("net")
 
 Polygon = class("Polygon", GameObject)
 GameObject.classes.Polygon = Polygon
@@ -48,7 +50,7 @@ function Polygon:initialize(points, color, solid, kunaiSolid, transparent, destr
         self.shape._object = self
     end
 
-    self.hinted = false
+    self.hinted = -100.0
 
     self.dynamic = self.openable or self.destructible
 end
@@ -62,15 +64,11 @@ function Polygon:update()
             self.markedForDeletion = true
         end
     end
-
-    -- this only really works because the player is rendered (and update) last
-    -- this is technically a hack
-    self.hinted = false
 end
 
 function Polygon:hintInteract()
     if self.openable then
-        self.hinted = true
+        self.hinted = lt.getTime()
     end
 end
 
@@ -111,7 +109,7 @@ function Polygon:draw()
     lg.setColor(color)
     lg.draw(self.mesh)
 
-    if self.hinted then
+    if lt.getTime() - self.hinted < const.hintDuration then
         lg.setColor(255, 255, 100, color[4])
         lg.setLineWidth(6)
         lg.polygon("line", self.points)

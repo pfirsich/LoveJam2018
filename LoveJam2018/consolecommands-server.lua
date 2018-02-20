@@ -18,7 +18,7 @@ local server = require("net.server")
 console.help.adminpw = {section = "Server",
     "Set the admin password",
     "Display admin password without argument, sets it with argument"}
-function console.help.adminpw(arg)
+function console.commands.adminpw(arg)
     pw = utils.trim(arg)
     if pw:len() == 0 then
         console.print(("Current admin password: '%s'"):format(config.adminpw))
@@ -32,7 +32,7 @@ end
 console.help.maxplayers = {section = "Server",
     "Set the maximum player number",
     "Display maximum player number without argument, sets it with argument"}
-function console.help.maxplayers(arg)
+function console.commands.maxplayers(arg)
     num = tonumber(arg)
     if not num then
         console.print(("Current maximum player number is %d"):format(server.maxPlayers))
@@ -40,4 +40,8 @@ function console.help.maxplayers(arg)
         server.mayPlayers = num
         console.print(("Maximum player number set to: '%s'"):format(num))
     end
+end
+
+function console.commands.map(arg)
+    server.changeMap(utils.trim(arg))
 end
