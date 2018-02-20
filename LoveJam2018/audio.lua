@@ -74,9 +74,6 @@ end
 local function play(name, x, y)
     assert(sounds[name], "Unknown sound: " .. name)
     assert(x, "Must pass position to audio.play!")
-    if y == nil then
-        x, y = x[1], x[2]
-    end
     local pos = {x, y}
     local sound = sounds[name]
 
@@ -115,6 +112,9 @@ local playRpc = net.Rpc(function(name, x, y)
 end)
 
 function audio.play(name, x, y)
+    if y == nil then
+        x, y = x[1], x[2]
+    end
     playRpc(name, x, y)
 end
 

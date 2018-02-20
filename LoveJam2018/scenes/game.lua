@@ -26,7 +26,6 @@ local maxFeedMessages = 15
 
 function scene.enter(mapName)
     lg.setBackgroundColor(20, 25, 100)
-    love.window.maximize()
 
     if mapName then
         scene.loadMap(mapName)
@@ -260,10 +259,10 @@ function scene.draw(dt)
     camera.push()
         if scene.player then
             scene.player:draw(dt)
+        else
+            lg.setColor(255, 0, 0, 255)
+            lg.circle("fill", audio.listener[1], audio.listener[2], 20)
         end
-
-        lg.setColor(255, 0, 0, 255)
-        lg.circle("fill", audio.listener[1], audio.listener[2], 20)
     camera.pop()
 
     lg.setColor(255, 255, 255, 255)
@@ -278,7 +277,7 @@ function scene.draw(dt)
 end
 
 function scene.mousepressed(x, y, button)
-    if button == 1 then
+    if button == 1 and not scene.player then
         audio.listener = {camera.screenToWorld(x, y)}
     end
 end

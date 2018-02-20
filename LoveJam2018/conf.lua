@@ -1,12 +1,12 @@
 function love.conf(t)
-    t.identity = "LoveJam2018 - Ninjagame"
+    t.identity = "Ninjagame"
     t.version = "0.10.2"
     t.console = true
     t.accelerometerjoystick = true
     t.externalstorage = false
     t.gammacorrect = false
 
-    t.window.title = "LoveJam2018 - Ninjagame"
+    t.window.title = "Ninjagame"
     t.window.icon = nil
     t.window.width = 1366
     t.window.height = 768

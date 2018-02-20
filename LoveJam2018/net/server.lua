@@ -37,7 +37,7 @@ function server.start(port)
     end
     server.host:compress_with_range_coder()
 
-    net.hosting = false
+    net.hosting = true
 end
 
 local function broadcast(...)
@@ -47,6 +47,16 @@ end
 local function getOpenTeams()
     -- TODO: implement this properly
     return {"attackers", "defenders", "spectate"}
+end
+
+local function copyRpc(rpc)
+    local ret = {}
+    for k, v in pairs(rpc) do
+        if k ~= "from" then
+            ret[k] = v
+        end
+    end
+    return ret
 end
 
 function server.update()
@@ -63,7 +73,6 @@ function server.update()
         end
         event = server.host:service()
     end
-    net.Rpc.callBuffer()
 
     for _, object in ipairs(GameObject.world) do
         if object.dynamic and object.owned then
@@ -85,10 +94,10 @@ function server.update()
                 local rpcs = {}
                 for _, rpc in ipairs(net.Rpc.buffer) do
                     if rpc.from ~= peer then
-                        table.insert(rpcs, rpc)
+                        table.insert(rpcs, copyRpc(rpc))
                     end
                 end
-                np.send(peer, net.msgTypes.S.RPC, {rpcs = rpcs})
+                net.send(peer, net.msgTypes.S.RPC, {rpcs = rpcs})
             end
         end
     end

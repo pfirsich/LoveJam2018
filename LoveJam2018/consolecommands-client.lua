@@ -115,4 +115,13 @@ function console.commands.team(cmd)
     client.teamScreen()
 end
 
+function console.commands.volume(cmd)
+    local vol = tonumber(cmd)
+    if vol then
+        love.audio.setVolume(vol)
+    else
+        console.print("Volume: " .. love.audio.getVolume())
+    end
+end
+
 return commands

@@ -37,7 +37,7 @@ function client.update()
         end
         event = client.host:service()
     end
-    net.Rpc.callBuffer("first")
+    net.Rpc.callBuffer()
 
     for _, object in ipairs(GameObject.world) do
         if object.dynamic and object.owned then
@@ -56,7 +56,7 @@ function client.update()
         net.send(client.server, net.msgTypes.C.RPC, {rpcs = net.Rpc.buffer})
     end
 
-    net.Rpc.callBuffer("second")
+    net.Rpc.callBuffer()
 end
 
 function client.teamScreen(teams)

@@ -13,6 +13,7 @@ function scene.enter(port)
     port = tonumber(port)
     assert(port, "Port must be a number")
     server.start(port)
+    love.window.setTitle("(Server) Ninjagame")
 end
 
 function scene.exit()
