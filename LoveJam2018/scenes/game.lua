@@ -19,6 +19,7 @@ scene.mapData = nil
 
 local shadowMesh = lg.newMesh(2048, "triangles", "dynamic")
 local shadowCanvas = lg.newCanvas()
+local enemyCanvas = lg.newCanvas()
 local background = lg.newImage("media/bg.png")
 local messageFeed = {}
 local maxFeedMessages = 15
@@ -81,6 +82,7 @@ end
 
 function scene.resize(width, height)
     shadowCanvas = lg.newCanvas()
+    enemyCanvas = lg.newCanvas()
 end
 
 local function rel(x, y, fromx, fromy)
@@ -155,6 +157,7 @@ function scene.tick()
         camera.approachTarget(const.cameraPosInterpFactor, const.cameraScaleInterpFactor)
         camera.bounds = scene.mapData.bounds
         camera.clampToBounds()
+        audio.listener = scene.player.position
     else
         local x, y, w, h = unpack(scene.mapData.bounds)
         camera.position = {x + w/2, y + h/2}
@@ -201,6 +204,16 @@ local function drawMessageFeed()
     end
 end
 
+local enemyShader = lg.newShader([[
+extern sampler2D shadowTexture;
+
+vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords) {
+    vec4 texturecolor = Texel(texture, texture_coords);
+    float shadow = Texel(shadowTexture, texture_coords).a;
+    return texturecolor * (1.0 - shadow);
+}
+]])
+
 function scene.draw(dt)
     local winW, winH = lg.getDimensions()
 
@@ -210,7 +223,8 @@ function scene.draw(dt)
 
     camera.push()
         for _, object in ipairs(GameObject.world) do
-            if object ~= scene.player then
+            if scene.player == nil or object.class ~= Player or
+               (object ~= scene.player and scene.player.team == object.team) then
                 object:draw(dt)
             end
         end
@@ -218,12 +232,26 @@ function scene.draw(dt)
 
     if scene.player then
         camera.push()
+            lg.setCanvas(enemyCanvas)
+            lg.clear(0, 0, 0, 0)
+            for _, object in ipairs(GameObject.world) do
+                if object.class == Player and scene.player.team ~= object.team then
+                    object:draw(dt)
+                end
+            end
+            lg.setCanvas()
+
             lg.setCanvas(shadowCanvas)
             lg.clear(0, 0, 0, 0)
             lg.setColor(0, 0, 0, 255)
             lg.draw(shadowMesh)
             lg.setCanvas()
         camera.pop()
+
+        lg.setShader(enemyShader)
+        enemyShader:send("shadowTexture", shadowCanvas)
+        lg.draw(enemyCanvas)
+        lg.setShader()
 
         lg.setColor(0, 0, 0, 120)
         lg.draw(shadowCanvas)
