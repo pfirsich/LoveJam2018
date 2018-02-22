@@ -144,8 +144,7 @@ local function updateShadowMesh()
         end
     end
     shadowMesh:setVertices(vertices)
-    -- check if range > 0
-    shadowMesh:setDrawRange(1, #vertices)
+    shadowMesh:setDrawRange(1, math.max(1, #vertices))
 end
 
 function scene.tick()
