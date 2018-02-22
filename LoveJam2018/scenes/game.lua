@@ -20,7 +20,7 @@ scene.mapData = nil
 local shadowMesh = lg.newMesh(2048, "triangles", "dynamic")
 local shadowCanvas = lg.newCanvas()
 local enemyCanvas = lg.newCanvas()
-local background = lg.newImage("media/bg.png")
+local background = lg.newImage("media/images/bg.png")
 local messageFeed = {}
 local maxFeedMessages = 15
 

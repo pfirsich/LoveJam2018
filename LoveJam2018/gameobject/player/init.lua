@@ -15,30 +15,19 @@ local net = require("net")
 local Player = class("Player", GameObject)
 GameObject.classes.Player = Player
 
-local function frameAnim(path, from, to)
-    local anim = animation.Animation(1.0)
-    anim:addFrames(animation.frameSequence(path, from, to))
-    return anim
-end
+local sheetFrameSize = 512
+local ninjaSheet = love.graphics.newImage("media/images/ninja.png")
+local animFrames = animation.getFrames(ninjaSheet, sheetFrameSize, sheetFrameSize)
 
-local playerAnimations = {
-    run =  frameAnim("media/ninja/run%d.png", 1, 8),
-    sneak = frameAnim("media/ninja/sneak%d.png", 1, 6),
-    idle = frameAnim("media/ninja/idle%d.png", 1, 2),
-    attack_side = frameAnim("media/ninja/attack_side.png", 1, 1),
-    attack_up = frameAnim("media/ninja/attack_up.png", 1, 1),
-    attack_down = frameAnim("media/ninja/attack_down.png", 1, 1),
-    dodge = frameAnim("media/ninja/dodge.png", 1, 1),
-    jumpsquat = frameAnim("media/ninja/jump1.png", 1, 1),
-    jump = frameAnim("media/ninja/jump2.png", 1, 1),
-    fall = frameAnim("media/ninja/fall%d.png", 1, 2),
-    land = frameAnim("media/ninja/land.png", 1, 1),
-    climbV = frameAnim("media/ninja/climbV%d.png", 1, 4),
-    climbH = frameAnim("media/ninja/climbH%d.png", 1, 4),
-    climbVstop = frameAnim("media/ninja/climbV1.png", 1, 1),
-    climbHstop = frameAnim("media/ninja/climbH%d.png", 1, 2),
-    dash = frameAnim("media/ninja/dash.png", 1, 1),
-}
+local playerAnimations = nil
+-- we can't do it here right away, since const is not already loaded
+local function loadPlayerAnimations()
+    playerAnimations = {}
+    for name, frames in pairs(const.player.animationFrames) do
+        playerAnimations[name] = animation.Animation(1.0)
+        playerAnimations[name]:addFrames(animation.sliceFrames(animFrames, unpack(frames)))
+    end
+end
 
 function Player:initialize(team, position)
     GameObject.initialize(self)
@@ -67,6 +56,9 @@ function Player:initialize(team, position)
 
     self._hitboxIdCounter = 0
 
+    if not playerAnimations then
+        loadPlayerAnimations()
+    end
     self.animation = animation.AnimationState()
     for name, anim in pairs(playerAnimations) do
         self.animation:addAnimation(name, anim)
@@ -288,10 +280,10 @@ function Player:draw(dt)
         lg.translate(unpack(self.position))
         local w, h = const.player.width, const.player.height
         --lg.rectangle("fill", -w/2, -h/2, w, h)
-        local scale = const.player.animationScales[self.animation.current] or 0.3
+        local scale = const.player.animationScale
         lg.scale(scale)
         lg.scale(self.flipped and -1 or 1, 1)
-        self.animation:draw(-512, h/2/scale - 1024)
+        self.animation:draw(-sheetFrameSize/2, h/2/scale - sheetFrameSize)
     lg.pop()
 
     utils.callNonNil(self.state.postDraw, self.state)

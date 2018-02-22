@@ -6,11 +6,8 @@ QuadFrame = class("QuadFrame")
 
 function QuadFrame:initialize(image, x, y, width, height)
     self.image = image
-    x = x or 0
-    y = y or 0
     local imgW, imgH = image:getDimensions()
-    width, height = imgW, imgH
-    self.quad = lg.newQuad(x, y, width, height, imgW, imgH)
+    self.quad = lg.newQuad(x or 0, y or 0, width or imgW, height or imgH, imgW, imgH)
 end
 
 function QuadFrame:draw(...)
@@ -19,7 +16,9 @@ end
 
 animation.QuadFrame = QuadFrame
 
+-- returns 2d array of QuadFrames
 function animation.getFrames(image, frameWidth, frameHeight, framesX, framesY, offsetX, offsetY)
+    frameHeight = frameHeight or frameWidth
     offsetX = offsetX or 0
     offsetY = offsetY or 0
     local imgW, imgH = image:getDimensions()
@@ -29,31 +28,35 @@ function animation.getFrames(image, frameWidth, frameHeight, framesX, framesY, o
     local ret = {}
     for y = 1, framesY do
         ret[y] = {}
-        for x = 1, framesY do
+        for x = 1, framesX do
             ret[y][x] = QuadFrame(image,
-                (x-1) * frameWidth, (y-1) * frameHeight, frameWidth, frameHeight)
+                (x-1) * frameWidth, (y-1) * frameHeight,
+                frameWidth, frameHeight)
         end
     end
 
-    if framesY == 1 then
-        ret = ret[1]
-    end
     return ret
 end
 
+-- takes a 2D array of frames and a number of tables
+-- {x, y} which are coordinates in the frame map
+-- x and y in itself may be tables themselves to indicate ranges
 function animation.sliceFrames(frameArray, ...)
     local args = {...}
     local frames = {}
     for _, arg in ipairs(args) do
         local x, y = arg[1], arg[2] or 1
+
         local fromX, toX = x, x
         if type(x) == "table" then
-            local fromX, toX = x[1], x[2]
+            fromX, toX = x[1], x[2]
         end
+
         local fromY, toY = y, y
-        if type(x) == "table" then
-            local fromY, toY = y[1], y[2]
+        if type(y) == "table" then
+            fromY, toY = y[1], y[2]
         end
+
         for y = fromY, toY do
             for x = fromX, toX do
                 table.insert(frames, frameArray[y][x])
@@ -88,6 +91,7 @@ end
 function Animation:getFrame(time)
     -- make sure that time = duration maps to duration
     time = (time - 1e5) % self.duration
+    assert(#self.frames > 0)
     return self.frames[math.floor(time / self.duration * #self.frames) + 1]
 end
 
