@@ -22,9 +22,11 @@ console.nextBufferIndex = 1
 console.scroll = 1 -- the index of the line first drawn in the view
 console.input = ""
 console.cursor = 0 -- the number of characters before the cursor
-console.takenBy = nil
-console.promptedBy = nil
 console.history = {}
+console.historyPointer = nil
+
+local takenBy = nil
+local promptedBy = nil
 
 local function len_utf8(text)
     return utf8.len(text)
@@ -44,8 +46,8 @@ function console.update(dt)
         console.height = math.max(console.height, 0)
     end
 
-    if console.takenBy and console.takenBy.update then
-        console.takenBy.update(dt)
+    if takenBy and takenBy.update then
+        takenBy.update(dt)
     end
 end
 
@@ -68,9 +70,9 @@ function console.draw()
     lg.setColor(console.textColor)
     lg.rectangle("line", 0, 0, winW, height)
 
-    if console.takenBy then
+    if takenBy then
         lg.setScissor(0, 0, winW, math.max(0, height))
-        lg.print(console.takenBy.text, margin, margin)
+        lg.print(takenBy.text, margin, margin)
         lg.setScissor(unpack(scissorBackup))
     else
         lg.setScissor(0, 0, winW, math.max(0, height - inputHeight))
@@ -115,18 +117,18 @@ function console.takeOver(handler)
             handler.enter()
         end
     end
-    console.takenBy = handler
+    takenBy = handler
 end
 
 function console.prompt(str, handler)
     console.print(str)
-    console.promptedBy = handler
+    promptedBy = handler
 end
 
 function console.exec(str)
-    if console.promptedBy then
-        console.promptedBy(str)
-        console.promptedBy = nil
+    if promptedBy then
+        promptedBy(str)
+        promptedBy = nil
     else
         local cmd, args = str:match("(%w+)(.*)")
         if console.commands[cmd] then
@@ -200,8 +202,8 @@ function console.keypressed(key)
         console.active = not console.active
     end
 
-    if console.takenBy then
-        console.takenBy.keypressed(key)
+    if takenBy then
+        takenBy.keypressed(key)
         return
     end
 
@@ -214,15 +216,28 @@ function console.keypressed(key)
             console.scroll = 1
         end
     elseif key == "up" then
-        if console.historyPointer == 0 then
+        if console.historyPointer == nil then
             console.history[0] = console.input
+            if #console.history > 0 then
+                console.historyPointer = 1
+            end
+        else
+            console.historyPointer = math.min(#console.history, console.historyPointer + 1)
         end
-        console.historyPointer = math.min(#console.history, console.historyPointer + 1)
-        console.input = console.history[console.historyPointer]
-        console.cursor = len_utf8(console.input)
+
+        if console.historyPointer then
+            console.input = console.history[console.historyPointer]
+            console.cursor = len_utf8(console.input)
+        end
     elseif key == "down" then
-        console.historyPointer = math.max(0, console.historyPointer - 1)
-        console.input = console.history[console.historyPointer] or console.input
+        if console.historyPointer then
+            console.historyPointer = math.max(0, console.historyPointer - 1)
+            console.input = console.history[console.historyPointer]
+
+            if console.historyPointer == 0 then
+                console.historyPointer = nil
+            end
+        end
         console.cursor = len_utf8(console.input)
     end
 
@@ -232,11 +247,12 @@ function console.keypressed(key)
         console.input = ""
         console.cursor = 0
         console.exec(input)
+
         table.insert(console.history, 1, input)
         while #console.history > console.maxHistory do
             table.remove(console.history)
         end
-        console.historyPointer = 0
+        console.historyPointer = nil
     end
 
     -- text input stuff
@@ -280,7 +296,7 @@ function console.keypressed(key)
 end
 
 function console.textinput(str)
-    if console.active and not console.takenBy then
+    if console.active and not takenBy then
         paste(str)
     end
 end
